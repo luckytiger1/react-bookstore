@@ -8,7 +8,7 @@ export default function SearchBox() {
         <input
           type="text"
           className="form-control"
-          placeholder="Search"
+          placeholder="Search in the bookstore"
           aria-label="Search"
           aria-describedby="button-addon2"
         />
@@ -18,7 +18,7 @@ export default function SearchBox() {
             type="button"
             id="button-addon2"
           >
-            Button
+            Search
           </button>
         </div>
       </div>

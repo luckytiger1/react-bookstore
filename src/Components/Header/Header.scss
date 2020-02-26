@@ -1,0 +1,21 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+}
+.cart-btn-container {
+  width: 200px;
+  margin: 25px 0 0;
+  width: 100%;
+  img {
+    width: 32px;
+    height: 32px;
+  }
+  &-title {
+    font-family: 'Odibee Sans';
+    font-size: 25px;
+  }
+  .view-cart-btn {
+    display: flex;
+    float: right;
+  }
+}

@@ -1,15 +1,22 @@
-import React from 'react';
-
-import '../assets/styles/style.scss';
+import React, { useState } from 'react';
 import SearchBox from './SearchBox/SearchBox';
 import BookItem from './BookItem/BookItem';
+import Header from './Header/Header';
+import '../assets/styles/style.scss';
 
 function App() {
+  const [count, setCount] = useState(0);
+
+  const handlePurchaseClick = () => {
+    setCount(count + 1);
+    console.log(count);
+  };
+
   return (
     <div>
-      <h1 className="store-title">Welcome to the Book Store</h1>
+      <Header count={count} />
       <SearchBox />
-      <BookItem />
+      <BookItem handleClick={handlePurchaseClick} />
     </div>
   );
 }
