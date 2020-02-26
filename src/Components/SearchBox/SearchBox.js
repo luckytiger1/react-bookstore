@@ -1,13 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import './SearchBox.scss';
 
-export default function SearchBox() {
+export default function SearchBox({ handleSearch }) {
   return (
     <div className="search-box">
       <div className="input-group mb-3">
         <input
           type="text"
-          className="form-control"
+          className="form-control search-input"
           placeholder="Search in the bookstore"
           aria-label="Search"
           aria-describedby="button-addon2"
@@ -17,6 +18,7 @@ export default function SearchBox() {
             className="btn btn-outline-primary"
             type="button"
             id="button-addon2"
+            onClick={handleSearch}
           >
             Search
           </button>
@@ -25,3 +27,7 @@ export default function SearchBox() {
     </div>
   );
 }
+
+SearchBox.propTypes = {
+  handleSearch: PropTypes.func.isRequired,
+};

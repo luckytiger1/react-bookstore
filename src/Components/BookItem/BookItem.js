@@ -1,17 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import booksList from '../booksList';
 import './BookItem.scss';
 
-export default function BookItem({ handleClick }) {
-  const [books, setBooks] = useState([]);
-
-  useEffect(() => {
-    Promise.resolve(booksList).then((data) => {
-      setBooks(data);
-    });
-  }, []);
-
+export default function BookItem({ handleClick, books }) {
   return (
     <div className="books-container container">
       {books.map((item) => {
@@ -26,6 +17,9 @@ export default function BookItem({ handleClick }) {
               <h4 className="card-title book-title">{item.title}</h4>
               <p className="card-text">
                 <strong>Author:</strong> {item.author}
+              </p>
+              <p>
+                <strong>Price:</strong> ${item.price}
               </p>
               <button
                 onClick={handleClick}
@@ -44,4 +38,5 @@ export default function BookItem({ handleClick }) {
 
 BookItem.propTypes = {
   handleClick: PropTypes.func.isRequired,
+  books: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
