@@ -1,0 +1,26 @@
+.books-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  img {
+    object-fit: contain;
+    height: 300px;
+  }
+  .book-item {
+    position: relative;
+    border: 1px solid gray;
+    margin: 20px 0;
+  }
+
+  .info-container {
+    margin-bottom: 40px;
+  }
+  .book-title {
+    font-family: 'Lacquer';
+  }
+
+  .purchase-btn {
+    position: absolute;
+    bottom: 15px;
+  }
+}

@@ -24,10 +24,9 @@ const books = [
       'https://images-na.ssl-images-amazon.com/images/I/41iers%2BHLSL._SL160_.jpg',
   },
   {
-    title: 'In Search of Lost Time',
-    author: 'Marcel Proust',
-    cover:
-      'https://images-na.ssl-images-amazon.com/images/I/51Wrlbko5QL._SL160_.jpg',
+    title: "Alice's Adventures in Wonderland",
+    author: 'Lewis Carroll',
+    cover: 'http://ecx.images-amazon.com/images/I/41h9Pz2qeIL._SL160_.jpg',
   },
   {
     title: 'One Hundred Years of Solitude',
