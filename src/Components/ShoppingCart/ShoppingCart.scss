@@ -1,0 +1,19 @@
+.shopping-cart {
+  &-container {
+    margin-top: 50px;
+  }
+  &-title {
+    margin-bottom: 40px;
+  }
+}
+
+.cart-list-container {
+  border-bottom: 1px solid black;
+  margin-bottom: 50px;
+}
+
+.cart-item {
+  font-family: 'Odibee Sans';
+
+  font-size: 25px;
+}

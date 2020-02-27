@@ -22,7 +22,7 @@ export default function BookItem({ handleClick, books }) {
                 <strong>Price:</strong> ${item.price}
               </p>
               <button
-                onClick={handleClick}
+                onClick={() => handleClick(item.id)}
                 type="button"
                 className="btn btn-primary purchase-btn"
               >

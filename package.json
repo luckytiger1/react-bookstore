@@ -51,7 +51,7 @@
   },
   "scripts": {
     "dev": "webpack-dev-server --config=config/webpack.dev.js",
-    "build": "webpack --config=config/webpack.prod.js",
+    "build": "webpack --config=config/webpack.prod.js && echo '/* /index.html  200' | cat >build/_redirects ",
     "lint": "eslint '**/*.{js,jsx}' --quiet",
     "test": "jest"
   },

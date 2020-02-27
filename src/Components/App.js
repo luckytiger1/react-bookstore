@@ -11,6 +11,7 @@ function App() {
   const [count, setCount] = useState(0);
   const [term, setTerm] = useState('');
   const [books, setBooks] = useState([]);
+  const [cart, setCart] = useState([]);
 
   // Fetch mock data
   useEffect(() => {
@@ -19,16 +20,37 @@ function App() {
     });
   }, []);
 
+  // Get book by passing id
+  const getItem = (id) => {
+    const book = books.find((item) => item.id === id);
+    return book;
+  };
+
   // Handle click on purchase button
-  const handlePurchaseClick = () => {
+  const handlePurchaseClick = (id) => {
     setCount(count + 1);
-    console.log(count);
+    const tempProducts = [...books];
+    const index = tempProducts.indexOf(getItem(id));
+    const product = tempProducts[index];
+    product.inCart = true;
+    product.count += 1;
+    product.total = product.price * product.count;
+    setBooks(tempProducts);
+    setCart([books.filter((el) => el.inCart)]);
   };
 
   // Handle click on search button
   const handleSearch = () => {
     const inputValue = document.querySelector('.search-input');
     setTerm(inputValue.value);
+  };
+
+  // Handle 'Enter' key down
+  const handleEnterKey = (e) => {
+    const inputValue = document.querySelector('.search-input');
+    if (e.key === 'Enter') {
+      setTerm(inputValue.value);
+    }
   };
 
   // Search by providing array of objects and search term
@@ -41,12 +63,12 @@ function App() {
     });
   };
 
+  // Filtered data
   const visibleData = search(books, term);
-
-  console.log(visibleData);
 
   return (
     <>
+      {/* Add route to main page and cart page */}
       <Router>
         <Header count={count} />
         <Route
@@ -54,12 +76,15 @@ function App() {
           path="/"
           render={() => (
             <>
-              <SearchBox handleSearch={handleSearch} />
+              <SearchBox
+                handleSearch={handleSearch}
+                handleEnterKey={handleEnterKey}
+              />
               <BookItem handleClick={handlePurchaseClick} books={visibleData} />
             </>
           )}
         />
-        <Route path="/cart" component={ShoppingCart} />
+        <Route path="/cart" render={() => <ShoppingCart items={cart} />} />
       </Router>
     </>
   );

@@ -13,6 +13,7 @@ module.exports = {
   mode: 'development',
   devServer: {
     contentBase: path.join(__dirname, '../build'),
+    historyApiFallback: true,
     compress: true,
     port: 3000,
     overlay: true,
