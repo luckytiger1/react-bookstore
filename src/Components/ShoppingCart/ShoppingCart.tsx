@@ -1,11 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import * as PropTypes from 'prop-types';
 import './ShoppingCart.scss';
 import CartColumnTitles from './CartColumnTitles';
 import EmptyCart from './EmptyCart';
 import CartList from './CartList';
 
-export default function ShoppingCart({ items }) {
+export interface ShoppingCartProps {
+  items: object[] | any[];
+}
+
+export default function ShoppingCart({ items }: ShoppingCartProps) {
   return (
     <div className="shopping-cart-container container">
       {items.length > 0 ? (

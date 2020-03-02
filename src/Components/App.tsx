@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import * as React from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { hot } from 'react-hot-loader';
 import SearchBox from './SearchBox/SearchBox';
 import BookItem from './BookItem/BookItem';
 import Header from './Header/Header';
@@ -21,13 +23,13 @@ function App() {
   }, []);
 
   // Get book by passing id
-  const getItem = (id) => {
+  const getItem = (id: string): object => {
     const book = books.find((item) => item.id === id);
     return book;
   };
 
   // Handle click on purchase button
-  const handlePurchaseClick = (id) => {
+  const handlePurchaseClick = (id: string): void => {
     setCount(count + 1);
     const tempProducts = [...books];
     const index = tempProducts.indexOf(getItem(id));
@@ -40,27 +42,36 @@ function App() {
   };
 
   // Handle click on search button
-  const handleSearch = () => {
-    const inputValue = document.querySelector('.search-input');
-    setTerm(inputValue.value);
+  const handleSearch = (): void => {
+    const inputValue: HTMLInputElement = document.querySelector(
+      '.search-input',
+    );
+    const { value } = inputValue;
+    setTerm(value);
   };
 
   // Handle 'Enter' key down
-  const handleEnterKey = (e) => {
-    const inputValue = document.querySelector('.search-input');
+  const handleEnterKey = (e: React.KeyboardEvent<HTMLInputElement>): void => {
+    const inputValue: HTMLInputElement = document.querySelector(
+      '.search-input',
+    );
     if (e.key === 'Enter') {
       setTerm(inputValue.value);
     }
   };
 
+  interface ItemTitle {
+    title: string;
+  }
+
   // Search by providing array of objects and search term
-  const search = (items, searchTerm) => {
+  const search = (items: object[], searchTerm: string) => {
     if (searchTerm === '') {
       return items;
     }
-    return items.filter((item) => {
-      return item.title.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-    });
+    return items.filter((item: ItemTitle) =>
+      item.title.toLowerCase().includes(searchTerm.toLowerCase()),
+    );
   };
 
   // Filtered data
@@ -90,4 +101,4 @@ function App() {
   );
 }
 
-export default App;
+export default hot(module)(App);

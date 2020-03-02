@@ -1,19 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
+import { ItemValue } from '../BookItem/BookItem';
 
-export default function CartList({ cart }) {
+export interface CartListProps {
+  cart: object[];
+}
+
+interface TotalValue {
+  total: number;
+}
+
+export default function CartList({ cart }: CartListProps) {
   const calculateTotal = () => {
-    const total = cart.reduce(
-      (accumulator, currentValue) => accumulator + currentValue.total,
+    const cartTotal = cart.reduce(
+      (accumulator: number, { total }: TotalValue) => accumulator + total,
       0,
     );
-    return total;
+    return cartTotal;
   };
 
   const totalPrice = calculateTotal();
   return (
     <div className="container-fluid">
-      {cart.map(({ title, id, price, count, total }) => {
+      {cart.map(({ title, id, price, count, total }: ItemValue) => {
         return (
           <div
             className="row my-1 text-capitalize text-center cart-list-container"
@@ -47,7 +55,3 @@ export default function CartList({ cart }) {
     </div>
   );
 }
-
-CartList.propTypes = {
-  cart: PropTypes.arrayOf(PropTypes.object).isRequired,
-};

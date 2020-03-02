@@ -1,9 +1,12 @@
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import './Header.scss';
 
-export default function Header({ count }) {
+export interface HeaderProps {
+  count: number;
+}
+
+export default function Header({ count }: HeaderProps) {
   return (
     <div className="header container">
       <div className="store-title-container">
@@ -32,7 +35,3 @@ export default function Header({ count }) {
     </div>
   );
 }
-
-Header.propTypes = {
-  count: PropTypes.number.isRequired,
-};

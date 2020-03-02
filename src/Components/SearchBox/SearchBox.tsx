@@ -1,8 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import * as React from 'react';
 import './SearchBox.scss';
 
-export default function SearchBox({ handleSearch, handleEnterKey }) {
+export interface SearchBoxProps {
+  handleSearch: () => void;
+  handleEnterKey: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+}
+
+export default function SearchBox({
+  handleSearch,
+  handleEnterKey,
+}: SearchBoxProps) {
   return (
     <div className="search-box">
       <div className="input-group mb-3">
@@ -28,12 +35,3 @@ export default function SearchBox({ handleSearch, handleEnterKey }) {
     </div>
   );
 }
-
-SearchBox.propTypes = {
-  handleSearch: PropTypes.func.isRequired,
-  handleEnterKey: PropTypes.func,
-};
-
-SearchBox.defaultProps = {
-  handleEnterKey: null,
-};

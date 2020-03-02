@@ -1,10 +1,11 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 module.exports = {
   entry: {
-    main: './src/index.js',
+    main: './src/index.tsx',
   },
   output: {
     path: path.resolve(__dirname, '../build'),
@@ -20,11 +21,18 @@ module.exports = {
     open: true,
     hot: true,
   },
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'eval-source-map',
+  resolve: {
+    modules: ['node_modules'],
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+  },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(j|t)s(x)?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader', // transpiling our JavaScript files using Babel and webpack
@@ -75,6 +83,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new ForkTsCheckerWebpackPlugin(),
     // CleanWebpackPlugin will do some clean up/remove folder before build
     // In this case, this plugin will remove 'dist' and 'build' folder before re-build again
     new CleanWebpackPlugin({}),

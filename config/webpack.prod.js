@@ -7,11 +7,12 @@ const TerserJSPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const BrotliPlugin = require('brotli-webpack-plugin');
 const PurgecssPlugin = require('purgecss-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const glob = require('glob');
 
 module.exports = {
   entry: {
-    main: './src/index.js',
+    main: './src/index.tsx',
   },
   output: {
     path: path.resolve(__dirname, '../build'),
@@ -19,10 +20,17 @@ module.exports = {
     chunkFilename: '[name].[chunkhash:8].chunk.js',
   },
   mode: 'production',
+  resolve: {
+    modules: ['node_modules'],
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+  },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(j|t)s(x)?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader', // transpiling our JavaScript files using Babel and webpack
@@ -91,6 +99,7 @@ module.exports = {
     // CleanWebpackPlugin will do some clean up/remove folder before build
     // In this case, this plugin will remove 'dist' and 'build' folder before re-build again
     new CleanWebpackPlugin({}),
+    new ForkTsCheckerWebpackPlugin(),
     // PurgecssPlugin will remove unused CSS
     new PurgecssPlugin({
       paths: glob.sync(path.resolve(__dirname, '../src/**/*'), { nodir: true }),
