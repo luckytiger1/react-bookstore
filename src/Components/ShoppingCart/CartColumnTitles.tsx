@@ -16,6 +16,9 @@ export default function CartColumnTitles() {
         <div className="col-10 mx-auto col-lg-2">
           <p className="text-uppercase">total</p>
         </div>
+        <div className="col-10 mx-auto col-lg-2">
+          <p className="text-uppercase">action</p>
+        </div>
       </div>
     </div>
   );

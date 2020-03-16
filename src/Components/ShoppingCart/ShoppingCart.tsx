@@ -1,5 +1,5 @@
 import * as React from 'react';
-import * as PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import './ShoppingCart.scss';
 import CartColumnTitles from './CartColumnTitles';
 import EmptyCart from './EmptyCart';
@@ -9,7 +9,9 @@ export interface ShoppingCartProps {
   items: object[] | any[];
 }
 
-export default function ShoppingCart({ items }: ShoppingCartProps) {
+const ShoppingCart = ({ items }: ShoppingCartProps) => {
+  // console.log(items);
+
   return (
     <div className="shopping-cart-container container">
       {items.length > 0 ? (
@@ -18,15 +20,19 @@ export default function ShoppingCart({ items }: ShoppingCartProps) {
             <h1 className="shopping-cart-title">Your Cart</h1>
           </div>
           <CartColumnTitles />
-          <CartList cart={items[0]} />
+          <CartList />
         </>
       ) : (
         <EmptyCart />
       )}
     </div>
   );
-}
-
-ShoppingCart.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.array).isRequired,
 };
+
+const mapStateToProps = ({ shoppingCart: { cartItems } }) => {
+  return {
+    items: cartItems,
+  };
+};
+
+export default connect(mapStateToProps)(ShoppingCart);

@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import './Header.scss';
+import { connect } from 'react-redux';
 
-export interface HeaderProps {
-  count: number;
-}
+// export interface HeaderProps {
+//   count: number;
+// }
 
-export default function Header({ count }: HeaderProps) {
+const Header = ({ cart, total }) => {
   return (
     <div className="header container">
       <div className="store-title-container">
@@ -26,7 +27,7 @@ export default function Header({ count }: HeaderProps) {
                 alt="cart"
               />
               <div className="cart-btn-container-title">
-                My Cart: {count} items
+                My Cart: {cart.reduce((acc, { count }) => acc + count, 0)} items
               </div>
             </button>
           </Link>
@@ -34,4 +35,13 @@ export default function Header({ count }: HeaderProps) {
       </div>
     </div>
   );
-}
+};
+
+const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal } }) => {
+  return {
+    cart: cartItems,
+    total: orderTotal,
+  };
+};
+
+export default connect(mapStateToProps)(Header);
