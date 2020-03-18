@@ -10,16 +10,13 @@ const filter = (items: BooksType[], searchTerm: string) => {
 };
 
 export interface UpdateBookListState {
-  books?: undefined | BooksType[];
+  books: undefined | BooksType[];
   loading: boolean;
   error: null | Error;
   filteredBooks?: BooksType[];
 }
 
-const updateBookList = (
-  state: UpdateBookListState,
-  action,
-): UpdateBookListState => {
+const updateBookList = (state: any, action: any) => {
   if (state === undefined) {
     return {
       books: [],

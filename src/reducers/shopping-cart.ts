@@ -1,4 +1,4 @@
-const updateCartItems = (cartItems, item, indx) => {
+const updateCartItems = (cartItems: any, item: any, indx: any) => {
   if (item.count === 0) {
     return [...cartItems.slice(0, indx), ...cartItems.slice(indx + 1)];
   }
@@ -8,8 +8,15 @@ const updateCartItems = (cartItems, item, indx) => {
 
   return [...cartItems.slice(0, indx), item, ...cartItems.slice(indx + 1)];
 };
+interface ItemTypes {
+  id?: string;
+  count?: null | number;
+  title?: string;
+  total?: number;
+  price?: number;
+}
 
-const updateCartItem = (book, item = {}, quantity) => {
+const updateCartItem = (book: any, item: ItemTypes = {}, quantity: any) => {
   const {
     id = book.id,
     count = 0,
@@ -28,21 +35,21 @@ const updateCartItem = (book, item = {}, quantity) => {
   };
 };
 
-const calculateTotal = (cart) => {
+const calculateTotal = (cart: any) => {
   const cartTotal = cart.reduce(
-    (accumulator, { total }) => accumulator + total,
+    (accumulator: number, { total }: any) => accumulator + total,
     0,
   );
   return cartTotal;
 };
 
-const updateOrder = (state, bookId, quantity) => {
+const updateOrder = (state: any, bookId: any, quantity: any) => {
   const {
     bookList: { books },
     shoppingCart: { cartItems },
   } = state;
-  const index = cartItems.findIndex(({ id }) => id === bookId);
-  const book = books.find((bookItem) => bookItem.id === bookId);
+  const index = cartItems.findIndex(({ id }: any) => id === bookId);
+  const book = books.find((bookItem: any) => bookItem.id === bookId);
   const product = cartItems[index];
   const newItem = updateCartItem(book, product, quantity);
 
@@ -54,7 +61,7 @@ const updateOrder = (state, bookId, quantity) => {
   };
 };
 
-const updateShoppingCart = (state, action) => {
+const updateShoppingCart = (state: any, action: any) => {
   if (state === undefined) {
     return {
       cartItems: [],
@@ -72,7 +79,7 @@ const updateShoppingCart = (state, action) => {
       const {
         shoppingCart: { cartItems },
       } = state;
-      const book = cartItems.find(({ id }) => id === action.payload);
+      const book = cartItems.find(({ id }: any) => id === action.payload);
       return updateOrder(state, action.payload, -book.count);
     }
     default:

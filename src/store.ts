@@ -3,16 +3,8 @@ import thunkMiddleware from 'redux-thunk';
 import reducer from './reducers/reducers';
 import { AppActions } from './types/actions';
 
-const logMiddleware = (store) => (dispatch: Dispatch<AppActions>) => (
-  action,
-) => {
-  console.log(action.type);
-
-  return dispatch(action);
-};
-
 const stringMiddleWare = () => (dispatch: Dispatch<AppActions>) => (
-  action: string,
+  action: AppActions,
 ) => {
   if (typeof action === 'string') {
     return dispatch({
@@ -24,7 +16,7 @@ const stringMiddleWare = () => (dispatch: Dispatch<AppActions>) => (
 
 const store = createStore(
   reducer,
-  applyMiddleware(thunkMiddleware, stringMiddleWare, logMiddleware),
+  applyMiddleware(thunkMiddleware, stringMiddleWare),
 );
 
 export type AppState = ReturnType<typeof reducer>;

@@ -56,7 +56,7 @@ const mapStateToProps = ({
 
 const mapDispatchToProps = (
   dispatch: Dispatch<AnyAction>,
-  { bookstoreService },
+  { bookstoreService }: any,
 ) => {
   return bindActionCreators(
     {

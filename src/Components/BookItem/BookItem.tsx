@@ -32,7 +32,7 @@ const BookItem = ({ books, handleClick }: BookItemProps) => {
               <p className="card-text">
                 <strong>Author:</strong> {item.author}
               </p>
-              <p>
+              <p className="price-container">
                 <strong>Price:</strong> ${item.price}
               </p>
               <button

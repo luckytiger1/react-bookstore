@@ -6,7 +6,7 @@ interface MyState {
 }
 
 export default class ErrorBoundary extends React.Component<{}, MyState> {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
     this.state = { hasError: false };
   }

@@ -29,7 +29,7 @@ const ShoppingCart = ({ items }: ShoppingCartProps) => {
   );
 };
 
-const mapStateToProps = ({ shoppingCart: { cartItems } }) => {
+const mapStateToProps = ({ shoppingCart: { cartItems } }: any) => {
   return {
     items: cartItems,
   };

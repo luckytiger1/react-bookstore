@@ -5,11 +5,12 @@ import {
   bookRemovedFromCart,
   allBooksRemovedFromCart,
 } from '../../actions/index';
-import { ItemValue } from '../BookList/BookList';
 
 export interface CartListProps {
   cart: object[];
-  total: number;
+  onIncrease: (id: string) => void;
+  onDecrease: (id: string) => void;
+  onDelete: (id: string) => void;
 }
 
 interface TotalValue {
@@ -18,7 +19,6 @@ interface TotalValue {
 
 const CartList = ({
   cart,
-  orderTotal,
   onIncrease,
   onDecrease,
   onDelete,
@@ -32,17 +32,16 @@ const CartList = ({
   };
   const totalPrice = calculateTotal();
 
-  console.log(cart);
   return (
     <div className="container-fluid">
-      {cart.map((item, i) => {
-        const { title, id, price, count, total } = item;
+      {cart.map((item) => {
+        const { title, id, price, count, total }: any = item;
         return (
           <div
             className="row my-1 text-capitalize text-center cart-list-container"
             key={id}
           >
-            <div className="col-10 mx-auto col-lg-2 cart-item" key={i}>
+            <div className="col-10 mx-auto col-lg-2 cart-item" key={id}>
               <span className="d-lg-none">product: </span>
               {title}
             </div>
@@ -96,7 +95,7 @@ const CartList = ({
   );
 };
 
-const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal } }) => {
+const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal } }: any) => {
   return {
     cart: cartItems,
     orderTotal,

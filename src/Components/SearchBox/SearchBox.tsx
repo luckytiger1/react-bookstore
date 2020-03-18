@@ -1,16 +1,16 @@
 import * as React from 'react';
 import './SearchBox.scss';
-import { filterBooks } from '../../actions';
 import { connect } from 'react-redux';
+import { filterBooks } from '../../actions';
 
 export interface SearchBoxProps {
-  handleSearch: () => void;
-  handleEnterKey: (event: React.KeyboardEvent<HTMLInputElement>) => void;
+  handleSearch: (term: string) => void;
+  handleEnterKey?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
 const SearchBox = ({ handleSearch }: SearchBoxProps) => {
   const [term, setTerm] = React.useState('');
-  const getValue = (e) => {
+  const getValue = (e: any) => {
     setTerm(e.target.value);
   };
   const handleEnterKey = (e: React.KeyboardEvent<HTMLInputElement>): void => {
