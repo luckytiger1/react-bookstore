@@ -7,6 +7,7 @@ export const FILTER_BOOKS = 'FILTER_BOOKS';
 export const BOOK_ADDED_TO_CART = 'BOOK_ADDED_TO_CART';
 export const BOOK_REMOVED_FROM_CART = 'BOOK_REMOVED_FROM_CART';
 export const ALL_BOOKS_REMOVED_FROM_CART = 'ALL_BOOKS_REMOVED_FROM_CART';
+export const FETCH_BOOKS = 'FETCH_BOOKS';
 
 export interface BooksRequestedAction {
   type: typeof FETCH_BOOKS_REQUEST;
@@ -20,6 +21,10 @@ export interface BooksLoadedAction {
 export interface BooksFailedAction {
   type: typeof FETCH_BOOKS_FAILED;
   payload: Error;
+}
+
+export interface FetchBooksAction {
+  type: typeof FETCH_BOOKS;
 }
 
 export interface FilterBooksAction {
@@ -45,7 +50,8 @@ export interface AllBooksRemovedFromCartAction {
 export type FetchActionTypes =
   | BooksRequestedAction
   | BooksFailedAction
-  | BooksLoadedAction;
+  | BooksLoadedAction
+  | FetchBooksAction;
 
 export type BooksActionTypes =
   | BookAddedToCartAction
