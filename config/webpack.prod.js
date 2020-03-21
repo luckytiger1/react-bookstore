@@ -118,17 +118,19 @@ module.exports = {
     // In this case we use gzip
     // But, you can also use the newest algorithm like brotli, and it's supperior than gzip
     new CompressionPlugin({
-      asset: '[path].gz[query]',
+      filename: '[path].gz[query]',
       algorithm: 'gzip',
       test: /\.js$|\.css$|\.html$/,
       threshold: 10240,
-      minRatio: 0.7,
+      minRatio: 0.8,
     }),
     new BrotliPlugin({
-      asset: '[path].br[query]',
-      test: /\.js$|\.css$|\.html$/,
+      filename: '[path].br[query]',
+      algorithm: 'brotliCompress',
+      test: /\.(js|css|html|svg)$/,
+      compressionOptions: { level: 11 },
       threshold: 10240,
-      minRatio: 0.7,
+      minRatio: 0.8,
     }),
   ],
 };
