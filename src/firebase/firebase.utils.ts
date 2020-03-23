@@ -1,5 +1,6 @@
-import firebase from 'firebase/app';
+import * as firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/analytics';
 import 'firebase/auth';
 
 const firebaseConfig = {
@@ -12,6 +13,7 @@ const firebaseConfig = {
   appId: '1:818578389540:web:a8de3e275a457206c136b1',
   measurementId: 'G-C80YR9PE2S',
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
@@ -24,5 +26,34 @@ const provider = new firebase.auth.GoogleAuthProvider();
 provider.setCustomParameters({ prompt: 'select_account' });
 
 export const signInWithGoogle = () => auth.signInWithPopup(provider);
+
+export const createUserProfileDocument = async (
+  userAuth: any,
+  additionalData: any,
+) => {
+  if (!userAuth) return;
+  const userRef = firestore.doc(`users/${userAuth.uid}`);
+
+  const snapShot = await userRef.get();
+  console.log(snapShot);
+
+  if (!snapShot.exists) {
+    const { displayName, email } = userAuth;
+    const createdAt = new Date();
+
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdAt,
+        ...additionalData,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  // eslint-disable-next-line consistent-return
+  return userRef;
+};
 
 export default firebase;

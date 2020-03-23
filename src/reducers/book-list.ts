@@ -1,4 +1,10 @@
 import { BooksType } from '../types/Books';
+import {
+  FETCH_BOOKS_REQUEST,
+  FETCH_BOOKS_SUCCESS,
+  FETCH_BOOKS_FAILED,
+  FILTER_BOOKS,
+} from '../types/actions';
 
 const filter = (items: BooksType[], searchTerm: string) => {
   if (searchTerm === '') {
@@ -26,21 +32,21 @@ const updateBookList = (state: any, action: any) => {
     };
   }
   switch (action.type) {
-    case 'FETCH_BOOKS_REQUEST':
+    case FETCH_BOOKS_REQUEST:
       return {
         books: [],
         loading: true,
         error: null,
         filteredBooks: [],
       };
-    case 'FETCH_BOOKS_SUCCESS':
+    case FETCH_BOOKS_SUCCESS:
       return {
         books: action.payload,
         filteredBooks: action.payload,
         loading: false,
         error: null,
       };
-    case 'FETCH_BOOKS_FAILED':
+    case FETCH_BOOKS_FAILED:
       return {
         books: [],
         filteredBooks: [],
@@ -48,7 +54,7 @@ const updateBookList = (state: any, action: any) => {
         error: action.payload,
       };
 
-    case 'FILTER_BOOKS': {
+    case FILTER_BOOKS: {
       const visibleData = filter(state.bookList.books, action.payload);
       return {
         ...state.bookList,

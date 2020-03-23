@@ -9,6 +9,13 @@ import {
   BOOK_REMOVED_FROM_CART,
   ALL_BOOKS_REMOVED_FROM_CART,
   FETCH_BOOKS,
+  SIGN_IN_EMAIL_CHANGE,
+  SIGN_IN_PASSWORD_CHANGE,
+  SIGN_IN_WITH_GOOGLE,
+  SIGN_UP_CHANGE_NAME,
+  SIGN_UP_CHANGE_EMAIL,
+  SIGN_UP_CHANGE_PASSWORD,
+  SIGN_UP_CHANGE_CONFIRM_PASSWORD,
 } from '../types/actions';
 
 const booksRequested = (): AppActions => {
@@ -87,6 +94,51 @@ const allBooksRemovedFromCart = (bookId: string): AppActions => {
   };
 };
 
+const signInEmailChange = (email: string): AppActions => {
+  return {
+    type: SIGN_IN_EMAIL_CHANGE,
+    payload: email,
+  };
+};
+const signInPasswordChange = (password: string): AppActions => {
+  return {
+    type: SIGN_IN_PASSWORD_CHANGE,
+    payload: password,
+  };
+};
+
+const signInWithGoogle = (user: object): AppActions => {
+  return {
+    type: SIGN_IN_WITH_GOOGLE,
+    payload: user,
+  };
+};
+
+const signUpChangeName = (name: string): AppActions => {
+  return {
+    type: SIGN_UP_CHANGE_NAME,
+    payload: name,
+  };
+};
+
+const signUpChangeEmail = (email: string): AppActions => {
+  return {
+    type: SIGN_UP_CHANGE_EMAIL,
+    payload: email,
+  };
+};
+const signUpChangePassword = (password: string): AppActions => {
+  return {
+    type: SIGN_UP_CHANGE_PASSWORD,
+    payload: password,
+  };
+};
+const signUpChangeConfirmPassword = (confirmPassword: string): AppActions => {
+  return {
+    type: SIGN_UP_CHANGE_CONFIRM_PASSWORD,
+    payload: confirmPassword,
+  };
+};
 export {
   booksRequested,
   booksLoaded,
@@ -96,4 +148,11 @@ export {
   bookAddedToCart,
   bookRemovedFromCart,
   allBooksRemovedFromCart,
+  signInEmailChange,
+  signInPasswordChange,
+  signInWithGoogle,
+  signUpChangeName,
+  signUpChangeEmail,
+  signUpChangePassword,
+  signUpChangeConfirmPassword,
 };

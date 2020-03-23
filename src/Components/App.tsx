@@ -7,6 +7,7 @@ import Header from './Header/Header';
 import '../assets/styles/style.scss';
 import ShoppingCart from './ShoppingCart/ShoppingCart';
 import withBookstoreService from './hoc/with-bookstore-service';
+import SignInAndSignUp from './SignInAndSignUp/SignInAndSignUp';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
           )}
         />
         <Route path="/cart" render={() => <ShoppingCart />} />
+        <Route path="/signin" render={() => <SignInAndSignUp />} />
       </Switch>
     </>
   );

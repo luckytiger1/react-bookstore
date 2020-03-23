@@ -1,14 +1,18 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import './Header.scss';
 import { connect } from 'react-redux';
+import './Header.scss';
+import { auth } from '../../firebase/firebase.utils';
 import { BooksType } from '../../types/Books';
+import { signInWithGoogle } from '../../actions/index';
 
 export interface HeaderProps {
   cart: BooksType[];
+  currentUser: any;
+  signOutFromGoogle: (user: object | null) => void;
 }
 
-const Header = ({ cart }: HeaderProps) => {
+const Header = ({ cart, currentUser, signOutFromGoogle }: HeaderProps) => {
   return (
     <div className="header container">
       <div className="store-title-container">
@@ -16,7 +20,30 @@ const Header = ({ cart }: HeaderProps) => {
           <h1 className="store-title">Welcome to the Book Store</h1>
         </Link>
       </div>
-      <div className="cart-container ">
+      <div className="cart-container d-flex">
+        <div className="cart-btn-container">
+          {currentUser ? (
+            <button
+              type="button"
+              className="btn btn-outline-success view-cart-btn"
+              onClick={() => {
+                signOutFromGoogle(null);
+                auth.signOut();
+              }}
+            >
+              <div className="cart-btn-container-title">SIGN OUT</div>
+            </button>
+          ) : (
+            <Link to="/signin">
+              <button
+                type="button"
+                className="btn btn-outline-success view-cart-btn"
+              >
+                <div className="cart-btn-container-title">SIGN IN</div>
+              </button>
+            </Link>
+          )}
+        </div>
         <div className="cart-btn-container">
           <Link to="/cart">
             <button
@@ -38,11 +65,19 @@ const Header = ({ cart }: HeaderProps) => {
   );
 };
 
-const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal } }: any) => {
+const mapStateToProps = ({
+  shoppingCart: { cartItems, orderTotal },
+  auth: { currentUser },
+}: any) => {
   return {
     cart: cartItems,
     total: orderTotal,
+    currentUser,
   };
 };
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = {
+  signOutFromGoogle: signInWithGoogle,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
