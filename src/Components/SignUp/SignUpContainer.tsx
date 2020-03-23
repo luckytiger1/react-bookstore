@@ -47,10 +47,10 @@ const SignUpContainer = ({
 
       await createUserProfileDocument(user, { displayName });
 
-      signUpChangeName('');
-      signUpChangeEmail('');
-      signUpChangePassword('');
-      signUpChangeConfirmPassword('');
+      nameHandler('');
+      emailHandler('');
+      passwordHandler('');
+      confirmPasswordHandler('');
     } catch (error) {
       console.error(error);
     }
