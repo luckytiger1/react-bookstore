@@ -3,16 +3,16 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import './Header.scss';
 import { auth } from '../../firebase/firebase.utils';
-import { BooksType } from '../../types/Books';
-import { signInWithGoogle } from '../../actions/index';
+import { signInWithGoogle } from '../../redux/actions/index';
+import { selectCartItemsCount } from '../../redux/selectors/cartSelectors';
 
 export interface HeaderProps {
-  cart: BooksType[];
+  itemCount: number;
   currentUser: any;
   signOutFromGoogle: (user: object | null) => void;
 }
 
-const Header = ({ cart, currentUser, signOutFromGoogle }: HeaderProps) => {
+const Header = ({ itemCount, currentUser, signOutFromGoogle }: HeaderProps) => {
   return (
     <div className="header container">
       <div className="store-title-container">
@@ -55,7 +55,7 @@ const Header = ({ cart, currentUser, signOutFromGoogle }: HeaderProps) => {
                 alt="cart"
               />
               <div className="cart-btn-container-title">
-                My Cart: {cart.reduce((acc, { count }) => acc + count, 0)} items
+                My Cart: {itemCount} items
               </div>
             </button>
           </Link>
@@ -65,14 +65,10 @@ const Header = ({ cart, currentUser, signOutFromGoogle }: HeaderProps) => {
   );
 };
 
-const mapStateToProps = ({
-  shoppingCart: { cartItems, orderTotal },
-  auth: { currentUser },
-}: any) => {
+const mapStateToProps = (state: any) => {
   return {
-    cart: cartItems,
-    total: orderTotal,
-    currentUser,
+    itemCount: selectCartItemsCount(state),
+    currentUser: state.auth.currentUser,
   };
 };
 

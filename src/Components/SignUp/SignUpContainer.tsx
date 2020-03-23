@@ -6,7 +6,7 @@ import {
   signUpChangeEmail,
   signUpChangePassword,
   signUpChangeConfirmPassword,
-} from '../../actions/index';
+} from '../../redux/actions/index';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 const SignUpContainer = ({

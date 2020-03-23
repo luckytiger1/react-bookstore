@@ -2,8 +2,8 @@ import { createStore, applyMiddleware, Dispatch } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import thunkMiddleware from 'redux-thunk';
 import reducer from './reducers/reducers';
-import { AppActions } from './types/actions';
-import sagaWatcher from './sagas';
+import { AppActions } from '../types/actions';
+import sagaWatcher from './sagas/sagas';
 
 const stringMiddleWare = () => (dispatch: Dispatch<AppActions>) => (
   action: AppActions,

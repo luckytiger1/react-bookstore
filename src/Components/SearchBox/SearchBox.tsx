@@ -1,7 +1,7 @@
 import * as React from 'react';
 import './SearchBox.scss';
 import { connect } from 'react-redux';
-import { filterBooks } from '../../actions';
+import { filterBooks } from '../../redux/actions';
 
 export interface SearchBoxProps {
   handleSearch: (term: string) => void;

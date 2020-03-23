@@ -1,7 +1,7 @@
 import { takeEvery, put, call } from 'redux-saga/effects';
-import { FETCH_BOOKS } from './types/actions';
-import { booksRequested, booksLoaded, booksFailed } from './actions/index';
-import BookStoreService from './services/bookstore-service';
+import { FETCH_BOOKS } from '../../types/actions';
+import { booksRequested, booksLoaded, booksFailed } from '../actions/index';
+import BookStoreService from '../../services/bookstore-service';
 
 const bookstoreService = new BookStoreService();
 

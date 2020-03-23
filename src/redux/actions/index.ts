@@ -1,4 +1,4 @@
-import { BooksType } from '../types/Books';
+import { BooksType } from '../../types/Books';
 import {
   AppActions,
   FETCH_BOOKS_REQUEST,
@@ -16,7 +16,7 @@ import {
   SIGN_UP_CHANGE_EMAIL,
   SIGN_UP_CHANGE_PASSWORD,
   SIGN_UP_CHANGE_CONFIRM_PASSWORD,
-} from '../types/actions';
+} from '../../types/actions';
 
 const booksRequested = (): AppActions => {
   return {

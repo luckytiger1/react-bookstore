@@ -2,7 +2,7 @@ import {
   SIGN_IN_EMAIL_CHANGE,
   SIGN_IN_PASSWORD_CHANGE,
   SIGN_IN_WITH_GOOGLE,
-} from '../types/actions';
+} from '../../types/actions';
 
 const signInUser = (state: any, action: any) => {
   if (state === undefined) {

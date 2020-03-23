@@ -2,7 +2,7 @@ import * as React from 'react';
 import './BookList.scss';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators, Dispatch, AnyAction } from 'redux';
-import { fetchBooks, bookAddedToCart } from '../../actions/index';
+import { fetchBooks, bookAddedToCart } from '../../redux/actions';
 import withBookstoreService from '../hoc/with-bookstore-service';
 import Spinner from '../Spinner/Spinner';
 import ErrorIndicator from '../ErrorIndicator/ErrorIndicator';

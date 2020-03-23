@@ -1,10 +1,10 @@
-import { BooksType } from '../types/Books';
+import { BooksType } from '../../types/Books';
 import {
   FETCH_BOOKS_REQUEST,
   FETCH_BOOKS_SUCCESS,
   FETCH_BOOKS_FAILED,
   FILTER_BOOKS,
-} from '../types/actions';
+} from '../../types/actions';
 
 const filter = (items: BooksType[], searchTerm: string) => {
   if (searchTerm === '') {

@@ -4,34 +4,24 @@ import {
   bookAddedToCart,
   bookRemovedFromCart,
   allBooksRemovedFromCart,
-} from '../../actions/index';
+} from '../../redux/actions/index';
+import { selectCartItemsTotal } from '../../redux/selectors/cartSelectors';
 
 export interface CartListProps {
+  cartTotal: number;
   cart: object[];
   onIncrease: (id: string) => void;
   onDecrease: (id: string) => void;
   onDelete: (id: string) => void;
 }
 
-interface TotalValue {
-  total: number;
-}
-
 const CartList = ({
+  cartTotal,
   cart,
   onIncrease,
   onDecrease,
   onDelete,
 }: CartListProps) => {
-  const calculateTotal = () => {
-    const cartTotal = cart.reduce(
-      (accumulator: number, { total }: TotalValue) => accumulator + total,
-      0,
-    );
-    return cartTotal;
-  };
-  const totalPrice = calculateTotal();
-
   return (
     <div className="container-fluid">
       {cart.map((item) => {
@@ -88,17 +78,19 @@ const CartList = ({
           className=" mx-auto col-lg-2 cart-item"
           style={{ marginTop: '20px' }}
         >
-          Total Price: ${totalPrice}
+          Total Price: ${cartTotal}
         </span>
       </div>
     </div>
   );
 };
 
-const mapStateToProps = ({ shoppingCart: { cartItems, orderTotal } }: any) => {
+const mapStateToProps = (state: any) => {
+  console.log('working');
+
   return {
-    cart: cartItems,
-    orderTotal,
+    cart: state.shoppingCart.cartItems,
+    cartTotal: selectCartItemsTotal(state),
   };
 };
 

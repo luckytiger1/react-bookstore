@@ -1,6 +1,6 @@
 import updateBookList from './book-list';
 import updateShoppingCart from './shopping-cart';
-import { AppActions } from '../types/actions';
+import { AppActions } from '../../types/actions';
 import signInUser from './auth';
 import signUpUser from './sign-up';
 

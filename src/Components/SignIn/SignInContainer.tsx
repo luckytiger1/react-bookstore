@@ -5,7 +5,7 @@ import {
   signInEmailChange,
   signInPasswordChange,
   signInWithGoogle,
-} from '../../actions';
+} from '../../redux/actions';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
 const SignInContainer = ({
