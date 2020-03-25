@@ -1,11 +1,16 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import {
   bookAddedToCart,
   bookRemovedFromCart,
   allBooksRemovedFromCart,
 } from '../../redux/actions/index';
-import { selectCartItemsTotal } from '../../redux/selectors/cartSelectors';
+import {
+  selectCartItemsTotal,
+  selectCartItems,
+} from '../../redux/selectors/cartSelectors';
+import StripeButton from '../StripeButton/StripeButton';
 
 export interface CartListProps {
   cartTotal: number;
@@ -81,18 +86,21 @@ const CartList = ({
           Total Price: ${cartTotal}
         </span>
       </div>
+      <div className="float-right">
+        <StripeButton price={cartTotal} />
+      </div>
+      <div className="mt-5 mb-4">
+        Credit card number for testing: <b>4242 4242 4242 4242</b>/ CVC :
+        <b> Any 3 digits</b> / Date : <b>Any future date</b>
+      </div>
     </div>
   );
 };
 
-const mapStateToProps = (state: any) => {
-  console.log('working');
-
-  return {
-    cart: state.shoppingCart.cartItems,
-    cartTotal: selectCartItemsTotal(state),
-  };
-};
+const mapStateToProps = createStructuredSelector({
+  cart: selectCartItems,
+  cartTotal: selectCartItemsTotal,
+});
 
 const mapDispatchToProps = {
   onIncrease: bookAddedToCart,

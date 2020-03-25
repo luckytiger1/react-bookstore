@@ -17,7 +17,6 @@ const SignInContainer = ({
 }: any) => {
   React.useEffect(() => {
     const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      // createUserProfileDocument(user);
       if (userAuth) {
         const userRef = await createUserProfileDocument(userAuth, null);
 
@@ -63,11 +62,10 @@ const SignInContainer = ({
   );
 };
 
-const mapStateToProps = ({ auth: { email, password, currentUser } }: any) => {
+const mapStateToProps = ({ auth: { email, password } }: any) => {
   return {
     email,
     password,
-    currentUser,
   };
 };
 

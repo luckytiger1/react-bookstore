@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import './ShoppingCart.scss';
+import { createStructuredSelector } from 'reselect';
 import CartColumnTitles from './CartColumnTitles';
 import EmptyCart from './EmptyCart';
 import CartList from './CartList';
+import { selectCartItems } from '../../redux/selectors/cartSelectors';
 
 export interface ShoppingCartProps {
   items: object[] | any[];
 }
 
 const ShoppingCart = ({ items }: ShoppingCartProps) => {
-  // console.log(items);
-
   return (
     <div className="shopping-cart-container container">
       {items.length > 0 ? (
@@ -29,10 +29,8 @@ const ShoppingCart = ({ items }: ShoppingCartProps) => {
   );
 };
 
-const mapStateToProps = ({ shoppingCart: { cartItems } }: any) => {
-  return {
-    items: cartItems,
-  };
-};
+const mapStateToProps = createStructuredSelector({
+  items: selectCartItems,
+});
 
 export default connect(mapStateToProps)(ShoppingCart);

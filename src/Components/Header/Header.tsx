@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import './Header.scss';
 import { auth } from '../../firebase/firebase.utils';
 import { signInWithGoogle } from '../../redux/actions/index';
 import { selectCartItemsCount } from '../../redux/selectors/cartSelectors';
+import selectCurrentUser from '../../redux/selectors/userSelectors';
 
 export interface HeaderProps {
   itemCount: number;
@@ -65,12 +67,10 @@ const Header = ({ itemCount, currentUser, signOutFromGoogle }: HeaderProps) => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    itemCount: selectCartItemsCount(state),
-    currentUser: state.auth.currentUser,
-  };
-};
+const mapStateToProps = createStructuredSelector({
+  itemCount: selectCartItemsCount,
+  currentUser: selectCurrentUser,
+});
 
 const mapDispatchToProps = {
   signOutFromGoogle: signInWithGoogle,
