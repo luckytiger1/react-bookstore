@@ -115,15 +115,7 @@ module.exports = {
       template: './src/index.html',
       filename: 'index.html',
     }),
-    new PreloadWebpackPlugin({
-      rel: 'preload',
-      as(entry) {
-        if (/\.css$/.test(entry)) return 'style';
-        if (/\.woff$/.test(entry)) return 'font';
-        if (/\.png$/.test(entry)) return 'image';
-        return 'script';
-      },
-    }),
+    new PreloadWebpackPlugin(),
     // ComppresionPlugin will Prepare compressed versions of assets to serve them with Content-Encoding.
     // In this case we use gzip
     // But, you can also use the newest algorithm like brotli, and it's supperior than gzip
