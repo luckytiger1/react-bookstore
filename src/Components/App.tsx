@@ -15,7 +15,7 @@ import {
 } from '../firebase/firebase.utils';
 import { signInWithGoogle } from '../redux/actions';
 
-import selectBookItems from '../redux/selectors/booksSelectors';
+import { selectBookItems } from '../redux/selectors/booksSelectors';
 
 const SearchBox = React.lazy(() => import('./SearchBox/SearchBox'));
 const BookList = React.lazy(() => import('./BookList/BookList'));

@@ -2,10 +2,16 @@ import * as React from 'react';
 import './BookList.scss';
 import { connect } from 'react-redux';
 import { compose, bindActionCreators, Dispatch, AnyAction } from 'redux';
+import { createStructuredSelector } from 'reselect';
 import { fetchBooks, bookAddedToCart } from '../../redux/actions';
 import withBookstoreService from '../hoc/with-bookstore-service';
 import Spinner from '../Spinner/Spinner';
 import ErrorIndicator from '../ErrorIndicator/ErrorIndicator';
+import {
+  selectIsBooksListLoading,
+  selectIsErrorInBookList,
+  selectFilteredBooks,
+} from '../../redux/selectors/booksSelectors';
 // import {
 // firestore,
 // convertCollectionsSnapshotToMap,
@@ -53,20 +59,11 @@ const BookList = ({
   );
 };
 
-interface StateTypes {
-  bookList: {
-    books: object[];
-    error: null | ErrorEvent;
-    loading: boolean;
-    filteredBooks: object[];
-  };
-}
-
-const mapStateToProps = ({
-  bookList: { books, loading, error, filteredBooks },
-}: StateTypes) => {
-  return { books, loading, error, filteredBooks };
-};
+const mapStateToProps = createStructuredSelector({
+  loading: selectIsBooksListLoading,
+  error: selectIsErrorInBookList,
+  filteredBooks: selectFilteredBooks,
+});
 
 const mapDispatchToProps = (dispatch: Dispatch<AnyAction>) => {
   return bindActionCreators(
