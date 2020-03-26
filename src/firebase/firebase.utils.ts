@@ -1,6 +1,5 @@
 import * as firebase from 'firebase/app';
 import 'firebase/firestore';
-import 'firebase/analytics';
 import 'firebase/auth';
 
 const firebaseConfig = {
@@ -16,8 +15,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
-
 export const auth = firebase.auth();
 export const firestore = firebase.firestore();
 
@@ -53,6 +50,24 @@ export const createUserProfileDocument = async (
   }
   // eslint-disable-next-line consistent-return
   return userRef;
+};
+
+export const addCollectionAndDocuments = async (
+  collectionKey: string,
+  objectsToAdd: any,
+) => {
+  const collectionRef = firestore.collection(collectionKey);
+  console.log(objectsToAdd);
+
+  const batch = firestore.batch();
+  objectsToAdd.forEach((obj: any) => {
+    const newDocRef = collectionRef.doc();
+    batch.set(newDocRef, obj);
+    // console.log(newDocRef);
+  });
+
+  // eslint-disable-next-line no-return-await
+  return await batch.commit();
 };
 
 export default firebase;

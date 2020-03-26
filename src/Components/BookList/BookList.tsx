@@ -6,7 +6,9 @@ import { fetchBooks, bookAddedToCart } from '../../redux/actions';
 import withBookstoreService from '../hoc/with-bookstore-service';
 import Spinner from '../Spinner/Spinner';
 import ErrorIndicator from '../ErrorIndicator/ErrorIndicator';
-import BookItem from '../BookItem/BookItem';
+// import BookItem from '../BookItem/BookItem';
+
+const BookItem = React.lazy(() => import('../BookItem/BookItem'));
 
 interface BookItemProps {
   handleClick: (id: string) => void;
@@ -36,7 +38,11 @@ const BookList = ({
     return <ErrorIndicator />;
   }
 
-  return <BookItem books={filteredBooks} handleClick={handleClick} />;
+  return (
+    <React.Suspense fallback={<Spinner />}>
+      <BookItem books={filteredBooks} handleClick={handleClick} />
+    </React.Suspense>
+  );
 };
 
 interface StateTypes {

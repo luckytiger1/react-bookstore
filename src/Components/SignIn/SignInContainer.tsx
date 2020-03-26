@@ -1,39 +1,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import SignIn from './SignIn';
-import {
-  signInEmailChange,
-  signInPasswordChange,
-  signInWithGoogle,
-} from '../../redux/actions';
-import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
+import { signInEmailChange, signInPasswordChange } from '../../redux/actions';
+import { auth } from '../../firebase/firebase.utils';
 
 const SignInContainer = ({
   email,
   password,
   emailHandler,
   passwordHandler,
-  googleSignIn,
 }: any) => {
-  React.useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth, null);
-
-        userRef.onSnapshot((snapShot: any) => {
-          googleSignIn({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      }
-    });
-
-    return () => {
-      unsubscribeFromAuth();
-    };
-  }, [googleSignIn]);
-
   const onEmailChange = (event: any) => {
     emailHandler(event.target.value);
   };
@@ -72,7 +48,6 @@ const mapStateToProps = ({ auth: { email, password } }: any) => {
 const mapDispatchToProps = {
   emailHandler: signInEmailChange,
   passwordHandler: signInPasswordChange,
-  googleSignIn: signInWithGoogle,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInContainer);

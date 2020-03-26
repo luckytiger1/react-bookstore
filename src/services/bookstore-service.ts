@@ -9,9 +9,6 @@ export default class BookStoreService {
       cover:
         'https://images-na.ssl-images-amazon.com/images/I/51Wrlbko5QL._SL160_.jpg',
       price: 20,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -20,9 +17,6 @@ export default class BookStoreService {
       cover:
         'https://images-na.ssl-images-amazon.com/images/I/51h6FygcbxL._SL160_.jpg',
       price: 23,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -31,9 +25,6 @@ export default class BookStoreService {
       cover:
         'https://images-na.ssl-images-amazon.com/images/I/41NrvHGS3lL._SL160_.jpg',
       price: 22,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -42,9 +33,6 @@ export default class BookStoreService {
       cover:
         'https://images-na.ssl-images-amazon.com/images/I/41iers%2BHLSL._SL160_.jpg',
       price: 21,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -52,9 +40,6 @@ export default class BookStoreService {
       author: 'Lewis Carroll',
       cover: 'http://ecx.images-amazon.com/images/I/41h9Pz2qeIL._SL160_.jpg',
       price: 26,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -63,9 +48,6 @@ export default class BookStoreService {
       cover:
         'https://images-na.ssl-images-amazon.com/images/I/51tkcSAhSDL._SL160_.jpg',
       price: 18,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -74,9 +56,6 @@ export default class BookStoreService {
       cover:
         'https://images-na.ssl-images-amazon.com/images/I/41WMBltiqdL._SL160_.jpg',
       price: 30,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -85,9 +64,6 @@ export default class BookStoreService {
       cover:
         'https://images-na.ssl-images-amazon.com/images/I/51J1nb00FLL._SL160_.jpg',
       price: 35,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -96,9 +72,6 @@ export default class BookStoreService {
       cover:
         'https://images-na.ssl-images-amazon.com/images/I/41beWU7rn8L._SL160_.jpg',
       price: 17,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -107,9 +80,6 @@ export default class BookStoreService {
       cover:
         'https://images-na.ssl-images-amazon.com/images/I/51dhOwUuI3L._SL160_.jpg',
       price: 18,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -117,9 +87,6 @@ export default class BookStoreService {
       author: 'J. D. Salinger',
       cover: 'http://ecx.images-amazon.com/images/I/41gTM5%2BdbfL._SL160_.jpg',
       price: 23,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -128,9 +95,6 @@ export default class BookStoreService {
       cover:
         'https://images-na.ssl-images-amazon.com/images/I/51FR8mSgqoL._SL160_.jpg',
       price: 27,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -138,9 +102,6 @@ export default class BookStoreService {
       author: 'Fyodor Dostoyevsky',
       cover: 'http://ecx.images-amazon.com/images/I/51c4Gb6Uo0L._SL160_.jpg',
       price: 24,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -149,9 +110,6 @@ export default class BookStoreService {
       cover:
         'https://images-na.ssl-images-amazon.com/images/I/41c99G44teL._SL160_.jpg',
       price: 28,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -159,9 +117,6 @@ export default class BookStoreService {
       author: 'Gustave Flaubert',
       cover: 'http://ecx.images-amazon.com/images/I/51o5dnjk07L._SL160_.jpg',
       price: 29,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
     {
       id: uuidv4(),
@@ -170,9 +125,6 @@ export default class BookStoreService {
       cover:
         'https://images-na.ssl-images-amazon.com/images/I/51Z5kuQVBjL._SL160_.jpg',
       price: 30,
-      inCart: false,
-      count: 0,
-      total: 0,
     },
   ];
 
@@ -181,7 +133,7 @@ export default class BookStoreService {
       setTimeout(() => {
         resolve(this.books);
         // reject(new Error('Error!'));
-      }, 1000);
+      }, 500);
     });
   }
 }
