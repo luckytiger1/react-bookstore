@@ -58,7 +58,7 @@ export const addCollectionAndDocuments = async (
   objectsToAdd: any,
 ) => {
   const collectionRef = firestore.collection(collectionKey);
-  console.log(objectsToAdd);
+  // console.log(objectsToAdd);
 
   const batch = firestore.batch();
   objectsToAdd.forEach((obj: any) => {
@@ -69,6 +69,18 @@ export const addCollectionAndDocuments = async (
 
   // eslint-disable-next-line no-return-await
   return await batch.commit();
+};
+
+export const convertCollectionsSnapshotToMap = (collectionsSnapshot: any) => {
+  const transformedCollection = collectionsSnapshot.docs.map(
+    (docSnapshot: any) => {
+      return {
+        ...docSnapshot.data(),
+      };
+    },
+  );
+  // console.log(transformedCollection);
+  return transformedCollection;
 };
 
 export default firebase;

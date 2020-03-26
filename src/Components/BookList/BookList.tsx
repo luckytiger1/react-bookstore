@@ -6,6 +6,10 @@ import { fetchBooks, bookAddedToCart } from '../../redux/actions';
 import withBookstoreService from '../hoc/with-bookstore-service';
 import Spinner from '../Spinner/Spinner';
 import ErrorIndicator from '../ErrorIndicator/ErrorIndicator';
+// import {
+// firestore,
+// convertCollectionsSnapshotToMap,
+// } from '../../firebase/firebase.utils';
 // import BookItem from '../BookItem/BookItem';
 
 const BookItem = React.lazy(() => import('../BookItem/BookItem'));
@@ -26,6 +30,10 @@ const BookList = ({
   fetchBooksData,
 }: BookItemProps) => {
   React.useEffect(() => {
+    // const collectionRef = firestore.collection('collections');
+    // collectionRef.onSnapshot((snapshot) => {
+    //   convertCollectionsSnapshotToMap(snapshot);
+    // });
     fetchBooksData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

@@ -11,7 +11,7 @@ import Spinner from './Spinner/Spinner';
 import {
   createUserProfileDocument,
   auth,
-  addCollectionAndDocuments,
+  // addCollectionAndDocuments,
 } from '../firebase/firebase.utils';
 import { signInWithGoogle } from '../redux/actions';
 
@@ -37,7 +37,7 @@ const App = ({ currentUser, googleSignIn, collectionsArray }: any) => {
           });
         });
       }
-      addCollectionAndDocuments('collections', collectionsArray);
+      // addCollectionAndDocuments('collections', collectionsArray);
     });
 
     return () => {
