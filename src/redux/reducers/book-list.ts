@@ -4,6 +4,7 @@ import {
   FETCH_BOOKS_SUCCESS,
   FETCH_BOOKS_FAILED,
   FILTER_BOOKS,
+  AppActions,
 } from '../../types/actions';
 
 const filter = (items: BooksType[], searchTerm: string) => {
@@ -15,22 +16,24 @@ const filter = (items: BooksType[], searchTerm: string) => {
   );
 };
 
-export interface UpdateBookListState {
-  books: undefined | BooksType[];
+type UpdateBookListState = {
+  books: undefined[] | BooksType[];
   loading: boolean;
   error: null | Error;
   filteredBooks?: BooksType[];
-}
+};
 
-const updateBookList = (state: any, action: any) => {
-  if (state === undefined) {
-    return {
-      books: [],
-      loading: true,
-      error: null,
-      filteredBooks: [],
-    };
-  }
+const initialState: UpdateBookListState = {
+  books: [],
+  loading: true,
+  error: null,
+  filteredBooks: [],
+};
+
+const updateBookList = (
+  state = initialState,
+  action: AppActions,
+): UpdateBookListState => {
   switch (action.type) {
     case FETCH_BOOKS_REQUEST:
       return {
@@ -55,14 +58,14 @@ const updateBookList = (state: any, action: any) => {
       };
 
     case FILTER_BOOKS: {
-      const visibleData = filter(state.bookList.books, action.payload);
+      const visibleData = filter(state.books, action.payload);
       return {
-        ...state.bookList,
+        ...state,
         filteredBooks: visibleData,
       };
     }
     default:
-      return state.bookList;
+      return state;
   }
 };
 

@@ -1,22 +1,27 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import SignIn from './SignIn';
+import SignIn, { SignInProps } from './SignIn';
 import { signInEmailChange, signInPasswordChange } from '../../redux/actions';
 import { auth } from '../../firebase/firebase.utils';
 
-const SignInContainer = ({
+type SignInContainerProps = SignInProps & {
+  emailHandler: (e: string) => void;
+  passwordHandler: (e: string) => void;
+};
+
+const SignInContainer: React.FC<SignInContainerProps> = ({
   email,
   password,
   emailHandler,
   passwordHandler,
-}: any) => {
-  const onEmailChange = (event: any) => {
+}) => {
+  const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     emailHandler(event.target.value);
   };
-  const onPasswordChange = (event: any) => {
+  const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     passwordHandler(event.target.value);
   };
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     try {

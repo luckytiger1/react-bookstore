@@ -1,12 +1,16 @@
 import * as React from 'react';
 import ErrorIndicator from '../ErrorIndicator/ErrorIndicator';
 
-interface MyState {
+type MyState = {
   hasError: boolean;
-}
+};
+
+type ErrorBoundaryProps = {
+  children: React.ReactNode;
+};
 
 export default class ErrorBoundary extends React.Component<{}, MyState> {
-  constructor(props: any) {
+  constructor(props: ErrorBoundaryProps) {
     super(props);
     this.state = { hasError: false };
   }

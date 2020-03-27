@@ -2,10 +2,15 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.utils';
 
-export default function SignInSignOutButton({
+export type SignInSignOutButtonProps = {
+  currentUser: object | null;
+  signOutFromGoogle: (user: object | null) => void;
+};
+
+const SignInSignOutButton: React.FC<SignInSignOutButtonProps> = ({
   currentUser,
   signOutFromGoogle,
-}: any) {
+}) => {
   return (
     <div className="cart-btn-container">
       {currentUser ? (
@@ -31,4 +36,6 @@ export default function SignInSignOutButton({
       )}
     </div>
   );
-}
+};
+
+export default SignInSignOutButton;

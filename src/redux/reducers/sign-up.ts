@@ -3,41 +3,41 @@ import {
   SIGN_UP_CHANGE_EMAIL,
   SIGN_UP_CHANGE_PASSWORD,
   SIGN_UP_CHANGE_CONFIRM_PASSWORD,
+  AppActions,
 } from '../../types/actions';
+import { SignUpUserState } from '../../types/types';
 
-const signUpUser = (state: any, action: any) => {
-  if (state === undefined) {
-    return {
-      displayName: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
-    };
-  }
+const initialState: SignUpUserState = {
+  displayName: '',
+  email: '',
+  password: '',
+  confirmPassword: '',
+};
 
+const signUpUser = (state = initialState, action: AppActions) => {
   switch (action.type) {
     case SIGN_UP_CHANGE_NAME:
       return {
-        ...state.signUp,
+        ...state,
         displayName: action.payload,
       };
     case SIGN_UP_CHANGE_EMAIL:
       return {
-        ...state.signUp,
+        ...state,
         email: action.payload,
       };
     case SIGN_UP_CHANGE_PASSWORD:
       return {
-        ...state.signUp,
+        ...state,
         password: action.payload,
       };
     case SIGN_UP_CHANGE_CONFIRM_PASSWORD:
       return {
-        ...state.signUp,
+        ...state,
         confirmPassword: action.payload,
       };
     default:
-      return state.signUp;
+      return state;
   }
 };
 

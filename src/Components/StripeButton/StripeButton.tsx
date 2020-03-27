@@ -1,7 +1,11 @@
 import * as React from 'react';
 import StripeCheckout from 'react-stripe-checkout';
 
-const StripeButton = ({ price }: any) => {
+type Props = {
+  price: number;
+};
+
+const StripeButton: React.FC<Props> = ({ price }) => {
   const priceForStripe = price * 100;
   const publicKey = 'pk_test_hlrY1iK33lImxCVX7LvWyx2f00RNomIVEU';
 

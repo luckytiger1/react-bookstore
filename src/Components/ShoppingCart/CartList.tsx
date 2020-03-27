@@ -11,26 +11,27 @@ import {
   selectCartItems,
 } from '../../redux/selectors/cartSelectors';
 import StripeButton from '../StripeButton/StripeButton';
+import { BooksType } from '../../types/Books';
 
-export interface CartListProps {
+type CartListProps = {
   cartTotal: number;
   cart: object[];
-  onIncrease: (id: string) => void;
-  onDecrease: (id: string) => void;
-  onDelete: (id: string) => void;
-}
+  onIncrease: (item: BooksType) => void;
+  onDecrease: (item: BooksType) => void;
+  onDelete: (item: BooksType) => void;
+};
 
-const CartList = ({
+const CartList: React.FC<CartListProps> = ({
   cartTotal,
   cart,
   onIncrease,
   onDecrease,
   onDelete,
-}: CartListProps) => {
+}) => {
   return (
     <div className="container-fluid">
       {cart.map((item) => {
-        const { title, id, price, count, total }: any = item;
+        const { title, id, price, count }: BooksType = item;
         return (
           <div
             className="row my-1 text-capitalize text-center cart-list-container"
@@ -48,7 +49,7 @@ const CartList = ({
               {count}
             </div>
             <div className="col-10 mx-auto col-lg-2 cart-item">
-              <span className="d-lg-none">total: </span>${total}
+              <span className="d-lg-none">total: </span>${price * count}
             </div>
             <div className="col-10 mx-auto col-lg-2 cart-item">
               <span className="d-lg-none">action: </span>
@@ -56,21 +57,21 @@ const CartList = ({
               <button
                 type="button"
                 className="btn btn-success btn-sm mx-1"
-                onClick={() => onIncrease(id)}
+                onClick={() => onIncrease(item)}
               >
                 +
               </button>
               <button
                 type="button"
                 className="btn btn-warning btn-sm mx-1"
-                onClick={() => onDecrease(id)}
+                onClick={() => onDecrease(item)}
               >
                 -
               </button>
               <button
                 type="button"
                 className="btn btn-danger btn-sm mx-1"
-                onClick={() => onDelete(id)}
+                onClick={() => onDelete(item)}
               >
                 delete
               </button>

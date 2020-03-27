@@ -73,24 +73,24 @@ const fetchBooks = () => {
   };
 };
 
-const bookAddedToCart = (bookId: string): AppActions => {
+const bookAddedToCart = (item: BooksType): AppActions => {
   return {
     type: BOOK_ADDED_TO_CART,
-    payload: bookId,
+    payload: item,
   };
 };
 
-const bookRemovedFromCart = (bookId: string): AppActions => {
+const bookRemovedFromCart = (item: BooksType): AppActions => {
   return {
     type: BOOK_REMOVED_FROM_CART,
-    payload: bookId,
+    payload: item,
   };
 };
 
-const allBooksRemovedFromCart = (bookId: string): AppActions => {
+const allBooksRemovedFromCart = (item: BooksType): AppActions => {
   return {
     type: ALL_BOOKS_REMOVED_FROM_CART,
-    payload: bookId,
+    payload: item,
   };
 };
 

@@ -42,16 +42,16 @@ export interface FilterBooksAction {
 
 export interface BookAddedToCartAction {
   type: typeof BOOK_ADDED_TO_CART;
-  payload: string;
+  payload: BooksType;
 }
 
 export interface BookRemovedFromCartAction {
   type: typeof BOOK_REMOVED_FROM_CART;
-  payload: string;
+  payload: BooksType;
 }
 export interface AllBooksRemovedFromCartAction {
   type: typeof ALL_BOOKS_REMOVED_FROM_CART;
-  payload: string;
+  payload: BooksType;
 }
 
 export interface SignInEmailChangeAction {

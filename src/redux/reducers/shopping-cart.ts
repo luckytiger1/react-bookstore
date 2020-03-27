@@ -2,94 +2,77 @@ import {
   BOOK_ADDED_TO_CART,
   BOOK_REMOVED_FROM_CART,
   ALL_BOOKS_REMOVED_FROM_CART,
+  AppActions,
 } from '../../types/actions';
+import { BooksType } from '../../types/Books';
 
-const updateCartItems = (cartItems: any, item: any, indx: any) => {
-  if (item.count === 0) {
-    return [...cartItems.slice(0, indx), ...cartItems.slice(indx + 1)];
-  }
-  if (indx === -1) {
-    return [...cartItems, item];
-  }
-
-  return [...cartItems.slice(0, indx), item, ...cartItems.slice(indx + 1)];
-};
-interface ItemTypes {
-  id?: string;
-  count?: null | number;
-  title?: string;
-  total?: number;
-  price?: number;
-}
-
-const updateCartItem = (book: any, item: ItemTypes = {}, quantity: any) => {
-  const {
-    id = book.id,
-    count = 0,
-    title = book.title,
-    total = 0,
-    price = book.price,
-  } = item;
-
-  return {
-    id,
-    title,
-    count: count + quantity,
-    inCart: true,
-    price,
-    total: total + quantity * book.price,
-  };
-};
-
-const calculateTotal = (cart: any) => {
-  const cartTotal = cart.reduce(
-    (accumulator: number, { total }: any) => accumulator + total,
-    0,
+const addItemsToCart = (cartItems: BooksType[], cartItemToAdd: BooksType) => {
+  const existingCartItem = cartItems.find(
+    (cartItem: BooksType) => cartItem.id === cartItemToAdd.id,
   );
-  return cartTotal;
-};
 
-const updateOrder = (state: any, bookId: any, quantity: any) => {
-  const {
-    bookList: { books },
-    shoppingCart: { cartItems },
-  } = state;
-  const index = cartItems.findIndex(({ id }: any) => id === bookId);
-  const book = books.find((bookItem: any) => bookItem.id === bookId);
-  const product = cartItems[index];
-  const newItem = updateCartItem(book, product, quantity);
-
-  const total = calculateTotal(cartItems);
-
-  return {
-    cartItems: updateCartItems(cartItems, newItem, index),
-    orderTotal: total,
-  };
-};
-
-const updateShoppingCart = (state: any, action: any) => {
-  if (state === undefined) {
-    return {
-      cartItems: [],
-      orderTotal: 0,
-    };
+  if (existingCartItem) {
+    return cartItems.map((cartItem) =>
+      cartItem.id === cartItemToAdd.id
+        ? {
+            ...cartItem,
+            count: cartItem.count + 1,
+          }
+        : cartItem,
+    );
   }
+  return [...cartItems, { ...cartItemToAdd, count: 1 }];
+};
+
+const removeItemFromCart = (
+  cartItems: BooksType[],
+  cartItemToRemove: BooksType,
+) => {
+  const existingCartItem = cartItems.find(
+    (cartItem) => cartItem.id === cartItemToRemove.id,
+  );
+
+  if (existingCartItem.count === 1) {
+    return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
+  }
+
+  return cartItems.map((cartItem) =>
+    cartItem.id === cartItemToRemove.id
+      ? { ...cartItem, count: cartItem.count - 1 }
+      : cartItem,
+  );
+};
+// type UpdateShoppingCartState = {
+//   cartItems: BooksType[] | undefined;
+//   orderTotal: number;
+// };
+
+const initialState: any = {
+  cartItems: [],
+};
+
+const updateShoppingCart = (state = initialState, action: AppActions): any => {
   switch (action.type) {
     case BOOK_ADDED_TO_CART:
-      return updateOrder(state, action.payload, 1);
-
+      return {
+        ...state,
+        cartItems: addItemsToCart(state.cartItems, action.payload),
+      };
     case BOOK_REMOVED_FROM_CART:
-      return updateOrder(state, action.payload, -1);
-
+      return {
+        ...state,
+        cartItems: removeItemFromCart(state.cartItems, action.payload),
+      };
     case ALL_BOOKS_REMOVED_FROM_CART: {
-      const {
-        shoppingCart: { cartItems },
-      } = state;
-      const book = cartItems.find(({ id }: any) => id === action.payload);
-      return updateOrder(state, action.payload, -book.count);
+      return {
+        ...state,
+        cartItems: state.cartItems.filter(
+          (cartItem: BooksType) => cartItem.id !== action.payload.id,
+        ),
+      };
     }
     default:
-      return state.shoppingCart;
+      return state;
   }
 };
 

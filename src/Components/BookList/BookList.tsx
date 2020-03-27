@@ -12,6 +12,7 @@ import {
   selectIsErrorInBookList,
   selectFilteredBooks,
 } from '../../redux/selectors/booksSelectors';
+import { BookItemProps } from '../BookItem/BookItem';
 // import {
 // firestore,
 // convertCollectionsSnapshotToMap,
@@ -20,21 +21,20 @@ import {
 
 const BookItem = React.lazy(() => import('../BookItem/BookItem'));
 
-interface BookItemProps {
-  handleClick: (id: string) => void;
+type BookListProps = BookItemProps & {
   error: null | ErrorEvent;
   loading: boolean;
   filteredBooks: object[];
   fetchBooksData: () => void;
-}
+};
 
-const BookList = ({
+const BookList: React.FC<BookListProps> = ({
   loading,
   handleClick,
   error,
   filteredBooks,
   fetchBooksData,
-}: BookItemProps) => {
+}) => {
   React.useEffect(() => {
     // const collectionRef = firestore.collection('collections');
     // collectionRef.onSnapshot((snapshot) => {

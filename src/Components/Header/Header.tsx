@@ -6,16 +6,20 @@ import './Header.scss';
 import { signInWithGoogle } from '../../redux/actions/index';
 import { selectCartItemsCount } from '../../redux/selectors/cartSelectors';
 import selectCurrentUser from '../../redux/selectors/userSelectors';
-import SignInSignOutButton from '../SignInSignOutButton/SignInSignOutButton';
+import SignInSignOutButton, {
+  SignInSignOutButtonProps,
+} from '../SignInSignOutButton/SignInSignOutButton';
 import MyCartButton from '../MyCartButton/MyCartButton';
 
-export interface HeaderProps {
+type HeaderProps = SignInSignOutButtonProps & {
   itemCount: number;
-  currentUser: any;
-  signOutFromGoogle: (user: object | null) => void;
-}
+};
 
-const Header = ({ itemCount, currentUser, signOutFromGoogle }: HeaderProps) => {
+const Header: React.FC<HeaderProps> = ({
+  itemCount,
+  currentUser,
+  signOutFromGoogle,
+}) => {
   return (
     <div className="header container">
       <div className="store-title-container">

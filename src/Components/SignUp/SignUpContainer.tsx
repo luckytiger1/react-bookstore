@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import SignUp from './SignUp';
+import SignUp, { SignUpProps } from './SignUp';
 import {
   signUpChangeName,
   signUpChangeEmail,
@@ -9,7 +9,14 @@ import {
 } from '../../redux/actions/index';
 import { auth, createUserProfileDocument } from '../../firebase/firebase.utils';
 
-const SignUpContainer = ({
+type SignUpContainerProps = SignUpProps & {
+  nameHandler: (e: string) => void;
+  emailHandler: (e: string) => void;
+  passwordHandler: (e: string) => void;
+  confirmPasswordHandler: (e: string) => void;
+};
+
+const SignUpContainer: React.FC<SignUpContainerProps> = ({
   displayName,
   email,
   password,
@@ -18,20 +25,24 @@ const SignUpContainer = ({
   emailHandler,
   passwordHandler,
   confirmPasswordHandler,
-}: any) => {
-  const onSignUpNameChange = (event: any) => {
+}) => {
+  const onSignUpNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     nameHandler(event.target.value);
   };
-  const onSignUpEmailChange = (event: any) => {
+  const onSignUpEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     emailHandler(event.target.value);
   };
-  const onSignUpPasswordChange = (event: any) => {
+  const onSignUpPasswordChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     passwordHandler(event.target.value);
   };
-  const onSignUpConfirmPasswordChange = (event: any) => {
+  const onSignUpConfirmPasswordChange = (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     confirmPasswordHandler(event.target.value);
   };
-  const handleSubmit = async (event: any) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (password !== confirmPassword) {

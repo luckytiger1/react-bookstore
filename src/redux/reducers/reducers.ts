@@ -1,25 +1,31 @@
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
+// import { persistReducer } from 'redux-persist';
+// import storage from 'redux-persist/lib/storage';
+import { combineReducers } from 'redux';
 import updateBookList from './book-list';
 import updateShoppingCart from './shopping-cart';
-import { AppActions } from '../../types/actions';
 import signInUser from './auth';
 import signUpUser from './sign-up';
 
-const persistConfig = {
-  key: 'root',
-  storage,
-};
+// const persistConfig = {
+// key: 'root',
+// storage,
+// };
 
-const reducer = (state: any, action: AppActions) => {
-  return {
-    bookList: updateBookList(state, action),
-    shoppingCart: updateShoppingCart(state, action),
-    auth: signInUser(state, action),
-    signUp: signUpUser(state, action),
-  };
-};
+const reducer = combineReducers({
+  bookList: updateBookList,
+  shoppingCart: updateShoppingCart,
+  auth: signInUser,
+  signUp: signUpUser,
+});
+
+// function rootReducer(state, action) {
+//   const intermediateState = reducer(state, action);
+//   console.log(intermediateState);
+
+//   const finalState = updateShoppingCart(intermediateState, action);
+//   return finalState;
+// }
 
 // export default reducer;
 
-export default persistReducer(persistConfig, reducer);
+export default reducer;

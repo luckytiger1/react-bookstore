@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export default function CartColumnTitles() {
+const CartColumnTitles: React.FC = () => {
   return (
     <div className="container-fluid text-center d-none d-lg-block">
       <div className="row">
@@ -22,4 +22,6 @@ export default function CartColumnTitles() {
       </div>
     </div>
   );
-}
+};
+
+export default CartColumnTitles;

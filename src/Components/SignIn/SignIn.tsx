@@ -2,13 +2,21 @@ import * as React from 'react';
 
 import { signInWithGoogle } from '../../firebase/firebase.utils';
 
-const SignIn = ({
+export type SignInProps = {
+  email: string;
+  password: string;
+  onEmailChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onPasswordChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
+};
+
+const SignIn: React.FC<SignInProps> = ({
   email,
   password,
   onEmailChange,
   onPasswordChange,
   handleSubmit,
-}: any) => {
+}) => {
   return (
     <form
       className="text-center border border-light p-5 w-100"

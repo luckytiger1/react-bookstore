@@ -1,5 +1,6 @@
 import * as React from 'react';
 
-export default function ErrorIndicator() {
+const ErrorIndicator: React.FC = () => {
   return <div>Error</div>;
-}
+};
+export default ErrorIndicator;

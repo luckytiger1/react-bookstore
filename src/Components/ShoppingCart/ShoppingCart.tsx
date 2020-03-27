@@ -8,10 +8,10 @@ import CartList from './CartList';
 import { selectCartItems } from '../../redux/selectors/cartSelectors';
 
 export interface ShoppingCartProps {
-  items: object[] | any[];
+  items: object[];
 }
 
-const ShoppingCart = ({ items }: ShoppingCartProps) => {
+const ShoppingCart: React.FC<ShoppingCartProps> = ({ items }) => {
   return (
     <div className="shopping-cart-container container">
       {items.length > 0 ? (

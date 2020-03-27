@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export default function EmptyCart() {
+const EmptyCart: React.FC = () => {
   return (
     <div className="container mt-5">
       <div className="row">
@@ -10,4 +10,6 @@ export default function EmptyCart() {
       </div>
     </div>
   );
-}
+};
+
+export default EmptyCart;

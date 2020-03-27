@@ -1,6 +1,20 @@
 import * as React from 'react';
 
-const SignUp = ({
+export type SignUpProps = {
+  displayName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  signUpChangeName?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  signUpChangeEmail?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  signUpChangePassword?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  signUpChangeConfirmPassword?: (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => void;
+  handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
+};
+
+const SignUp: React.FC<SignUpProps> = ({
   displayName,
   email,
   password,
@@ -10,7 +24,7 @@ const SignUp = ({
   signUpChangePassword,
   signUpChangeConfirmPassword,
   handleSubmit,
-}: any) => {
+}) => {
   return (
     <form
       className="text-center border border-light p-5 w-100"

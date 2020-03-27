@@ -11,12 +11,12 @@ export interface ItemValue {
   total: number;
 }
 
-interface BookItemProps {
-  books: object[];
-  handleClick: (id: string) => void;
-}
+export type BookItemProps = {
+  books?: object[];
+  handleClick: (item: object) => void;
+};
 
-const BookItem = ({ books, handleClick }: BookItemProps) => {
+const BookItem: React.FC<BookItemProps> = ({ books, handleClick }) => {
   return (
     <div>
       <div className="books-container container">
@@ -36,7 +36,7 @@ const BookItem = ({ books, handleClick }: BookItemProps) => {
                 <strong>Price:</strong> ${item.price}
               </p>
               <button
-                onClick={() => handleClick(item.id)}
+                onClick={() => handleClick(item)}
                 type="button"
                 className="btn btn-primary purchase-btn"
               >
