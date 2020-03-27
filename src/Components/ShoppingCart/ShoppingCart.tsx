@@ -4,7 +4,7 @@ import './ShoppingCart.scss';
 import { createStructuredSelector } from 'reselect';
 import CartColumnTitles from './CartColumnTitles';
 import EmptyCart from './EmptyCart';
-import CartList from './CartList';
+import CartList from './CartListContainer';
 import { selectCartItems } from '../../redux/selectors/cartSelectors';
 
 export interface ShoppingCartProps {
