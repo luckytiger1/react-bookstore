@@ -9,6 +9,7 @@ import SignInSignOutButton, {
   SignInSignOutButtonProps,
 } from '../SignInSignOutButton/SignInSignOutButton';
 import MyCartButton from '../MyCartButton/MyCartButton';
+import { signInWithGoogle } from '../../firebase/firebase.utils';
 
 type HeaderProps = SignInSignOutButtonProps & {
   itemCount: number;
@@ -43,7 +44,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  // signOutFromGoogle: signInWithGoogle,
+  signOutFromGoogle: signInWithGoogle,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
