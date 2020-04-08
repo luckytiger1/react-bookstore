@@ -5,6 +5,7 @@ import updateBookList from './book-list';
 import updateShoppingCart from './shopping-cart';
 import signInUser from './auth';
 import signUpUser from './sign-up';
+import userReducer from './user';
 
 // const persistConfig = {
 // key: 'root',
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   shoppingCart: updateShoppingCart,
   auth: signInUser,
   signUp: signUpUser,
+  user: userReducer,
 });
 
 // function rootReducer(state, action) {

@@ -10,9 +10,9 @@ import {
   selectCartItemsTotal,
   selectCartItems,
 } from '../../redux/selectors/cartSelectors';
-import { CartListProps } from './CartList';
+import CartList, { CartListProps } from './CartList';
 
-const CartList: React.FC<CartListProps> = ({
+const CartListContainer: React.FC<CartListProps> = ({
   cartTotal,
   cart,
   onIncrease,
@@ -41,4 +41,4 @@ const mapDispatchToProps = {
   onDelete: allBooksRemovedFromCart,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartList);
+export default connect(mapStateToProps, mapDispatchToProps)(CartListContainer);

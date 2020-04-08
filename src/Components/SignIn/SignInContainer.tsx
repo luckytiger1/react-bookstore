@@ -2,11 +2,13 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import SignIn, { SignInProps } from './SignIn';
 import { signInEmailChange, signInPasswordChange } from '../../redux/actions';
-import { auth } from '../../firebase/firebase.utils';
+import { googleSignInStart } from '../../redux/actions/googleSignIn';
+import { emailSignInStart } from '../../redux/actions/emailSignIn';
 
 type SignInContainerProps = SignInProps & {
   emailHandler: (e: string) => void;
   passwordHandler: (e: string) => void;
+  emailSignIn: (data: any) => void;
 };
 
 const SignInContainer: React.FC<SignInContainerProps> = ({
@@ -14,6 +16,8 @@ const SignInContainer: React.FC<SignInContainerProps> = ({
   password,
   emailHandler,
   passwordHandler,
+  googleSignIn,
+  emailSignIn,
 }) => {
   const onEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     emailHandler(event.target.value);
@@ -21,16 +25,10 @@ const SignInContainer: React.FC<SignInContainerProps> = ({
   const onPasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     passwordHandler(event.target.value);
   };
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    try {
-      await auth.signInWithEmailAndPassword(email, password);
-      emailHandler('');
-      passwordHandler('');
-    } catch (error) {
-      console.error(error);
-    }
+    emailSignIn({ email, password });
   };
   return (
     <SignIn
@@ -39,6 +37,7 @@ const SignInContainer: React.FC<SignInContainerProps> = ({
       onEmailChange={onEmailChange}
       onPasswordChange={onPasswordChange}
       handleSubmit={handleSubmit}
+      googleSignIn={googleSignIn}
     />
   );
 };
@@ -53,6 +52,8 @@ const mapStateToProps = ({ auth: { email, password } }: any) => {
 const mapDispatchToProps = {
   emailHandler: signInEmailChange,
   passwordHandler: signInPasswordChange,
+  googleSignIn: googleSignInStart,
+  emailSignIn: emailSignInStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignInContainer);

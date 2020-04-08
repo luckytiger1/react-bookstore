@@ -1,7 +1,6 @@
 import {
   SIGN_IN_EMAIL_CHANGE,
   SIGN_IN_PASSWORD_CHANGE,
-  SIGN_IN_WITH_GOOGLE,
   AppActions,
 } from '../../types/actions';
 import { SignInUserState } from '../../types/types';
@@ -27,11 +26,7 @@ const signInUser = (
         ...state,
         password: action.payload,
       };
-    case SIGN_IN_WITH_GOOGLE:
-      return {
-        ...state,
-        currentUser: action.payload,
-      };
+
     default:
       return state;
   }

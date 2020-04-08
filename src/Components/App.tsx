@@ -8,12 +8,6 @@ import '../assets/styles/style.scss';
 import withBookstoreService from './hoc/with-bookstore-service';
 import selectCurrentUser from '../redux/selectors/userSelectors';
 import Spinner from './Spinner/Spinner';
-import {
-  createUserProfileDocument,
-  auth,
-  // addCollectionAndDocuments,
-} from '../firebase/firebase.utils';
-import { signInWithGoogle } from '../redux/actions';
 
 import { selectBookItems } from '../redux/selectors/booksSelectors';
 
@@ -24,26 +18,7 @@ const SignInAndSignUp = React.lazy(() =>
 );
 const ShoppingCart = React.lazy(() => import('./ShoppingCart/ShoppingCart'));
 
-const App = ({ currentUser, googleSignIn, collectionsArray }: any) => {
-  React.useEffect(() => {
-    const unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth, null);
-
-        userRef.onSnapshot((snapShot: any) => {
-          googleSignIn({
-            id: snapShot.id,
-            ...snapShot.data(),
-          });
-        });
-      }
-      // addCollectionAndDocuments('collections', collectionsArray);
-    });
-
-    return () => {
-      unsubscribeFromAuth();
-    };
-  }, [googleSignIn, collectionsArray]);
+const App = ({ currentUser }: any) => {
   return (
     <>
       {/* Add route to main page and cart page */}
@@ -79,10 +54,6 @@ const mapStateToProps = createStructuredSelector({
   collectionsArray: selectBookItems,
 });
 
-const mapDispatchToProps = {
-  googleSignIn: signInWithGoogle,
-};
-
 export default hot(module)(
-  connect(mapStateToProps, mapDispatchToProps)(withBookstoreService()(App)),
+  connect(mapStateToProps, null)(withBookstoreService()(App)),
 );

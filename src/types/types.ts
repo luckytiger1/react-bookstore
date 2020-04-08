@@ -17,3 +17,8 @@ export type UpdateShoppingCartState = {
   cartItems: BooksType[] | undefined;
   orderTotal: number;
 };
+
+export type UserState = {
+  currentUser: null | object;
+  error: null | Error;
+};

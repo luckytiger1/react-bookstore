@@ -1,13 +1,12 @@
 import * as React from 'react';
 
-import { signInWithGoogle } from '../../firebase/firebase.utils';
-
 export type SignInProps = {
   email: string;
   password: string;
   onEmailChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onPasswordChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   handleSubmit?: (event: React.FormEvent<HTMLFormElement>) => void;
+  googleSignIn: () => void;
 };
 
 const SignIn: React.FC<SignInProps> = ({
@@ -16,6 +15,7 @@ const SignIn: React.FC<SignInProps> = ({
   onEmailChange,
   onPasswordChange,
   handleSubmit,
+  googleSignIn,
 }) => {
   return (
     <form
@@ -50,7 +50,7 @@ const SignIn: React.FC<SignInProps> = ({
       </button>
       <button
         className="btn btn-primary btn-block my-4"
-        onClick={signInWithGoogle}
+        onClick={googleSignIn}
         type="button"
       >
         SIGN IN WITH GOOGLE

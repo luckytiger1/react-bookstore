@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import './Header.scss';
-import { signInWithGoogle } from '../../redux/actions/index';
 import { selectCartItemsCount } from '../../redux/selectors/cartSelectors';
 import selectCurrentUser from '../../redux/selectors/userSelectors';
 import SignInSignOutButton, {
@@ -44,7 +43,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  signOutFromGoogle: signInWithGoogle,
+  // signOutFromGoogle: signInWithGoogle,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
