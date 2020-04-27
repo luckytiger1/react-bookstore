@@ -1,9 +1,10 @@
 import {
-  GOOGLE_SIGN_IN_SUCCESS,
-  EMAIL_SIGN_IN_SUCCESS,
-  GOOGLE_SIGN_IN_FAILURE,
-  EMAIL_SIGN_IN_FAILURE,
   AppActions,
+  SIGN_OUT_FAILURE,
+  SIGN_OUT_SUCCESS,
+  SIGN_UP_FAILURE,
+  SIGN_IN_SUCCESS,
+  SIGN_IN_FAILURE,
 } from '../../types/actions';
 import { UserState } from '../../types/types';
 
@@ -14,15 +15,21 @@ const initialState: UserState = {
 
 const userReducer = (state = initialState, action: AppActions): UserState => {
   switch (action.type) {
-    case GOOGLE_SIGN_IN_SUCCESS:
-    case EMAIL_SIGN_IN_SUCCESS:
+    case SIGN_IN_SUCCESS:
       return {
         ...state,
         currentUser: action.payload,
         error: null,
       };
-    case GOOGLE_SIGN_IN_FAILURE:
-    case EMAIL_SIGN_IN_FAILURE:
+    case SIGN_OUT_SUCCESS:
+      return {
+        ...state,
+        currentUser: null,
+        error: null,
+      };
+    case SIGN_OUT_FAILURE:
+    case SIGN_IN_FAILURE:
+    case SIGN_UP_FAILURE:
       return {
         ...state,
         error: action.payload,

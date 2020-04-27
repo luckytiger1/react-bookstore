@@ -7,6 +7,7 @@ export const FILTER_BOOKS = 'FILTER_BOOKS';
 export const BOOK_ADDED_TO_CART = 'BOOK_ADDED_TO_CART';
 export const BOOK_REMOVED_FROM_CART = 'BOOK_REMOVED_FROM_CART';
 export const ALL_BOOKS_REMOVED_FROM_CART = 'ALL_BOOKS_REMOVED_FROM_CART';
+export const CLEAR_CART = 'CLEAR_CART';
 export const FETCH_BOOKS = 'FETCH_BOOKS';
 export const SIGN_IN_EMAIL_CHANGE = 'SIGN_IN_EMAIL_CHANGE';
 export const SIGN_IN_PASSWORD_CHANGE = 'SIGN_IN_PASSWORD_CHANGE';
@@ -16,11 +17,15 @@ export const SIGN_UP_CHANGE_PASSWORD = 'SIGN_UP_CHANGE_PASSWORD';
 export const SIGN_UP_CHANGE_CONFIRM_PASSWORD =
   'SIGN_UP_CHANGE_CONFIRM_PASSWORD';
 export const GOOGLE_SIGN_IN_START = 'GOOGLE_SIGN_IN_START';
-export const GOOGLE_SIGN_IN_SUCCESS = 'GOOGLE_SIGN_IN_SUCCESS';
-export const GOOGLE_SIGN_IN_FAILURE = 'GOOGLE_SIGN_IN_FAILURE';
 export const EMAIL_SIGN_IN_START = 'EMAIL_SIGN_IN_START';
-export const EMAIL_SIGN_IN_SUCCESS = 'EMAIL_SIGN_IN_SUCCESS';
-export const EMAIL_SIGN_IN_FAILURE = 'EMAIL_SIGN_IN_FAILURE';
+export const SIGN_OUT_START = 'SIGN_OUT_START';
+export const SIGN_OUT_SUCCESS = 'SIGN_OUT_SUCCESS';
+export const SIGN_OUT_FAILURE = 'SIGN_OUT_FAILURE';
+export const SIGN_UP_START = 'SIGN_UP_START';
+export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
+export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
+export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
+export const SIGN_IN_FAILURE = 'SIGN_IN_FAILURE';
 
 export interface BooksRequestedAction {
   type: typeof FETCH_BOOKS_REQUEST;
@@ -58,6 +63,9 @@ export interface AllBooksRemovedFromCartAction {
   type: typeof ALL_BOOKS_REMOVED_FROM_CART;
   payload: BooksType;
 }
+export interface ClearCartAction {
+  type: typeof CLEAR_CART;
+}
 
 export interface SignInEmailChangeAction {
   type: typeof SIGN_IN_EMAIL_CHANGE;
@@ -87,24 +95,39 @@ export interface SignUpChangeConfirmPasswordAction {
 export interface GoogleSignInStartAction {
   type: typeof GOOGLE_SIGN_IN_START;
 }
-export interface GoogleSignInSuccessAction {
-  type: typeof GOOGLE_SIGN_IN_SUCCESS;
-  payload: object;
-}
-export interface GoogleSignInFailureAction {
-  type: typeof GOOGLE_SIGN_IN_FAILURE;
-  payload: Error;
-}
+
 export interface EmailSignInStartAction {
   type: typeof EMAIL_SIGN_IN_START;
   payload: object;
 }
-export interface EmailSignInSuccessAction {
-  type: typeof EMAIL_SIGN_IN_SUCCESS;
-  payload: object;
+export interface SignOutStartAction {
+  type: typeof SIGN_OUT_SUCCESS;
 }
-export interface EmailSignInFailureAction {
-  type: typeof EMAIL_SIGN_IN_FAILURE;
+export interface SignOutSuccessAction {
+  type: typeof SIGN_OUT_SUCCESS;
+}
+export interface SignOutFailureAction {
+  type: typeof SIGN_OUT_FAILURE;
+  payload: Error;
+}
+export interface SignUpStartAction {
+  type: typeof SIGN_UP_START;
+  payload: any;
+}
+export interface SignUpSuccessAction {
+  type: typeof SIGN_UP_SUCCESS;
+  payload: any;
+}
+export interface SignUpFailureAction {
+  type: typeof SIGN_UP_FAILURE;
+  payload: Error;
+}
+export interface SignInSuccessAction {
+  type: typeof SIGN_IN_SUCCESS;
+  payload: any;
+}
+export interface SignInFailureAction {
+  type: typeof SIGN_IN_FAILURE;
   payload: Error;
 }
 
@@ -117,7 +140,8 @@ export type FetchActionTypes =
 export type BooksActionTypes =
   | BookAddedToCartAction
   | BookRemovedFromCartAction
-  | AllBooksRemovedFromCartAction;
+  | AllBooksRemovedFromCartAction
+  | ClearCartAction;
 
 export type FilterBooksActionTypes = FilterBooksAction;
 
@@ -131,15 +155,21 @@ export type SignUpActionTypes =
   | SignUpChangePasswordAction
   | SignUpChangeConfirmPasswordAction;
 
-export type GoogleSignInTypes =
-  | GoogleSignInStartAction
-  | GoogleSignInSuccessAction
-  | GoogleSignInFailureAction;
+export type GoogleSignInTypes = GoogleSignInStartAction;
 
-export type EmailSignInTypes =
-  | EmailSignInStartAction
-  | EmailSignInSuccessAction
-  | EmailSignInFailureAction;
+export type EmailSignInTypes = EmailSignInStartAction;
+
+export type SignOutTypes =
+  | SignOutStartAction
+  | SignOutSuccessAction
+  | SignOutFailureAction;
+
+export type SignUpTypes =
+  | SignUpStartAction
+  | SignUpSuccessAction
+  | SignUpFailureAction;
+
+export type SignInTypes = SignInSuccessAction | SignInFailureAction;
 
 export type AppActions =
   | FetchActionTypes
@@ -148,4 +178,7 @@ export type AppActions =
   | SignInActionTypes
   | SignUpActionTypes
   | GoogleSignInTypes
-  | EmailSignInTypes;
+  | EmailSignInTypes
+  | SignOutTypes
+  | SignUpTypes
+  | SignInTypes;

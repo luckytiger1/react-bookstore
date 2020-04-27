@@ -2,8 +2,8 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import SignIn, { SignInProps } from './SignIn';
 import { signInEmailChange, signInPasswordChange } from '../../redux/actions';
-import { googleSignInStart } from '../../redux/actions/googleSignIn';
-import { emailSignInStart } from '../../redux/actions/emailSignIn';
+import googleSignInStart from '../../redux/actions/googleSignIn';
+import emailSignInStart from '../../redux/actions/emailSignIn';
 
 type SignInContainerProps = SignInProps & {
   emailHandler: (e: string) => void;

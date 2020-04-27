@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { auth } from '../../firebase/firebase.utils';
 
 export type SignInSignOutButtonProps = {
   currentUser: object | null;
-  signOutFromGoogle: (user: object | null) => void;
+  userSignOutStart: () => void;
 };
 
 const SignInSignOutButton: React.FC<SignInSignOutButtonProps> = ({
   currentUser,
-  signOutFromGoogle,
+  userSignOutStart,
 }) => {
   return (
     <div className="cart-btn-container">
@@ -17,10 +16,7 @@ const SignInSignOutButton: React.FC<SignInSignOutButtonProps> = ({
         <button
           type="button"
           className="btn btn-outline-success view-cart-btn"
-          onClick={() => {
-            signOutFromGoogle(null);
-            auth.signOut();
-          }}
+          onClick={userSignOutStart}
         >
           <div className="cart-btn-container-title">SIGN OUT</div>
         </button>

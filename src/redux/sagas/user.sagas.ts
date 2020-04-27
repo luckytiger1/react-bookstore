@@ -1,65 +1,118 @@
-// import { takeLatest, put, all, call } from 'redux-saga/effects';
-// import { GOOGLE_SIGN_IN_START, EMAIL_SIGN_IN_START } from '../../types/actions';
-// import {
-//   auth,
-//   googleProvider,
-//   createUserProfileDocument,
-// } from '../../firebase/firebase.utils';
-// import {
-//   googleSignInSuccess,
-//   googleSignInFailure,
-// } from '../actions/googleSignIn';
-// import { emailSignInFailure, emailSignInSuccess } from '../actions/emailSignIn';
+import { takeLatest, put, all, call } from 'redux-saga/effects';
+import {
+  GOOGLE_SIGN_IN_START,
+  EMAIL_SIGN_IN_START,
+  SIGN_OUT_START,
+  SIGN_UP_START,
+  SIGN_UP_SUCCESS,
+} from '../../types/actions';
+import {
+  auth,
+  googleProvider,
+  createUserProfileDocument,
+} from '../../firebase/firebase.utils';
+import { signOutSuccess, signOutFailure } from '../actions/signOut';
+import { signUpFailure, signUpSuccess } from '../actions/signUp';
+import { signInFailure, signInSuccess } from '../actions/signIn';
 
-// function* signInWithGoogle() {
-//   try {
-//     const { user } = yield auth.signInWithPopup(googleProvider);
-//     const userRef = yield call(createUserProfileDocument, user);
-//     const userSnapshot = yield userRef.get();
-//     yield put(
-//       googleSignInSuccess({
-//         id: userSnapshot.id,
-//         ...userSnapshot.data(),
-//       }),
-//     );
-//   } catch (error) {
-//     yield put(googleSignInFailure(error));
-//   }
-// }
+type EmailAndPass = {
+  payload: {
+    email: string;
+    password: string;
+  };
+};
 
-// type EmailAndPass = {
-//   payload: {
-//     email: string;
-//     password: string;
-//   };
-// };
+function* getSnapshotFromUserAuth(userAuth: any, additionalData: any) {
+  try {
+    // @ts-ignore
+    const userRef = yield call(
+      createUserProfileDocument,
+      userAuth,
+      additionalData,
+    );
+    const userSnapshot = yield userRef.get();
+    yield put(
+      signInSuccess({
+        id: userSnapshot.id,
+        ...userSnapshot.data(),
+      }),
+    );
+  } catch (error) {
+    yield put(signInFailure(error));
+  }
+}
 
-// function* signInWithEmail({ payload: { email, password } }: EmailAndPass) {
-//   try {
-//     const user = auth.signInWithEmailAndPassword(email, password);
+function* signInWithGoogle() {
+  try {
+    const { user } = yield auth.signInWithPopup(googleProvider);
+    yield getSnapshotFromUserAuth(user, null);
+  } catch (error) {
+    yield put(signInFailure(error));
+  }
+}
 
-//     const userRef: ReturnType<any> = yield call(
-//       createUserProfileDocument,
-//       user,
-//     );
-//     const userSnapshot = yield userRef.get();
-//     yield put(
-//       emailSignInSuccess({
-//         id: userSnapshot.id,
-//         ...userSnapshot.data(),
-//       }),
-//     );
-//   } catch (error) {
-//     yield put(emailSignInFailure(error));
-//   }
-// }
-// function* onGoogleSignInStart() {
-//   yield takeLatest(GOOGLE_SIGN_IN_START, signInWithGoogle);
-// }
-// function* onEmailSignInStart() {
-//   yield takeLatest(EMAIL_SIGN_IN_START, signInWithEmail);
-// }
+function* signInWithEmail({ payload: { email, password } }: EmailAndPass) {
+  try {
+    const user = auth.signInWithEmailAndPassword(email, password);
+    yield getSnapshotFromUserAuth(user, null);
+  } catch (error) {
+    yield put(signInFailure(error));
+  }
+}
 
-// export default function* userSagas() {
-//   yield all([call(onGoogleSignInStart), call(onEmailSignInStart)]);
-// }
+function* signOut() {
+  try {
+    yield auth.signOut();
+    yield put(signOutSuccess());
+  } catch (error) {
+    yield put(signOutFailure(error));
+  }
+}
+
+function* signUp({ payload: { email, password, displayName } }: any) {
+  try {
+    const { user } = yield auth.createUserWithEmailAndPassword(email, password);
+    yield put(signUpSuccess({ user, additionalData: { displayName } }));
+  } catch (error) {
+    yield put(signUpFailure(error));
+  }
+}
+
+function* signInAfterSignUp({ payload: { user, additionalData } }: any) {
+  try {
+    yield getSnapshotFromUserAuth(user, additionalData);
+  } catch (error) {
+    yield put(signUpFailure(error));
+  }
+}
+
+function* onGoogleSignInStart() {
+  yield takeLatest(GOOGLE_SIGN_IN_START, signInWithGoogle);
+}
+
+function* onEmailSignInStart() {
+  // @ts-ignore
+  yield takeLatest(EMAIL_SIGN_IN_START, signInWithEmail);
+}
+
+function* onSignOutStart() {
+  yield takeLatest(SIGN_OUT_START, signOut);
+}
+
+function* onSignUpStart() {
+  yield takeLatest(SIGN_UP_START, signUp);
+}
+
+function* onSignUpSuccess() {
+  yield takeLatest(SIGN_UP_SUCCESS, signInAfterSignUp);
+}
+
+export default function* userSagas() {
+  yield all([
+    call(onGoogleSignInStart),
+    call(onEmailSignInStart),
+    call(onSignOutStart),
+    call(onSignUpStart),
+    call(onSignUpSuccess),
+  ]);
+}

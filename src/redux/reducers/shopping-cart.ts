@@ -3,6 +3,7 @@ import {
   BOOK_REMOVED_FROM_CART,
   ALL_BOOKS_REMOVED_FROM_CART,
   AppActions,
+  CLEAR_CART,
 } from '../../types/actions';
 import { BooksType } from '../../types/Books';
 
@@ -71,6 +72,11 @@ const updateShoppingCart = (state = initialState, action: AppActions): any => {
         ),
       };
     }
+    case CLEAR_CART:
+      return {
+        ...state,
+        cartItems: [],
+      };
     default:
       return state;
   }

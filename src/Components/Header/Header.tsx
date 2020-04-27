@@ -9,7 +9,7 @@ import SignInSignOutButton, {
   SignInSignOutButtonProps,
 } from '../SignInSignOutButton/SignInSignOutButton';
 import MyCartButton from '../MyCartButton/MyCartButton';
-import { signInWithGoogle } from '../../firebase/firebase.utils';
+import { signOutStart } from '../../redux/actions/signOut';
 
 type HeaderProps = SignInSignOutButtonProps & {
   itemCount: number;
@@ -18,7 +18,7 @@ type HeaderProps = SignInSignOutButtonProps & {
 const Header: React.FC<HeaderProps> = ({
   itemCount,
   currentUser,
-  signOutFromGoogle,
+  userSignOutStart,
 }) => {
   return (
     <div className="header container">
@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({
       <div className="cart-container d-flex">
         <SignInSignOutButton
           currentUser={currentUser}
-          signOutFromGoogle={signOutFromGoogle}
+          userSignOutStart={userSignOutStart}
         />
         <MyCartButton itemCount={itemCount} />
       </div>
@@ -44,7 +44,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = {
-  signOutFromGoogle: signInWithGoogle,
+  userSignOutStart: signOutStart,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

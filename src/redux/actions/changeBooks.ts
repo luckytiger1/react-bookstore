@@ -5,6 +5,7 @@ import {
   BOOK_ADDED_TO_CART,
   BOOK_REMOVED_FROM_CART,
   ALL_BOOKS_REMOVED_FROM_CART,
+  CLEAR_CART,
 } from '../../types/actions';
 
 const filterBooks = (term: string): AppActions => {
@@ -35,9 +36,16 @@ const allBooksRemovedFromCart = (item: BooksType): AppActions => {
   };
 };
 
+const clearCart = () => {
+  return {
+    type: CLEAR_CART,
+  };
+};
+
 export {
   filterBooks,
   bookAddedToCart,
   bookRemovedFromCart,
   allBooksRemovedFromCart,
+  clearCart,
 };
