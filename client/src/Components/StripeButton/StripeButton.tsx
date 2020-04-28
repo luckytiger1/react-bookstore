@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from 'axios';
 import StripeCheckout from 'react-stripe-checkout';
 
 type Props = {
@@ -10,8 +11,20 @@ const StripeButton: React.FC<Props> = ({ price }) => {
   const publicKey = 'pk_test_hlrY1iK33lImxCVX7LvWyx2f00RNomIVEU';
 
   const onToken = (token: any) => {
-    console.log(token);
-    alert('Payment Successful!');
+    axios
+      .post('/payment', {
+        amount: priceForStripe,
+        token,
+      })
+      .then((response) => {
+        alert('Payment Successful!');
+      })
+      .catch((error) => {
+        console.log('error is ', error);
+        alert(
+          'There was an issue with your payment. Please make sure you use the provided credit card.',
+        );
+      });
   };
   return (
     <StripeCheckout
