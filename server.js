@@ -16,18 +16,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 
 if (process.env.NODE_ENV === 'production') {
+  app.use(enforce.HTTPS({ trustProtoHeader: true }));
   app.use(express.static(path.join(__dirname, 'client/build')));
 
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
   });
 }
-
-// const PAYMENT_SERVER_URL = process.env.NODE_ENV === 'production'
-//   ? 'http://myapidomain.com'
-//   : 'http://localhost:5000';
-
-// export default PAYMENT_SERVER_URL;
 
 app.listen(port, (error) => {
   if (error) throw error;

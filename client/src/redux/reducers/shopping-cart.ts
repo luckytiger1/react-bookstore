@@ -4,6 +4,7 @@ import {
   ALL_BOOKS_REMOVED_FROM_CART,
   AppActions,
   CLEAR_CART,
+  SET_CART_FROM_FIREBASE,
 } from '../../types/actions';
 import { BooksType } from '../../types/Books';
 
@@ -76,6 +77,11 @@ const updateShoppingCart = (state = initialState, action: AppActions): any => {
       return {
         ...state,
         cartItems: [],
+      };
+    case SET_CART_FROM_FIREBASE:
+      return {
+        ...state,
+        cartItems: action.payload,
       };
     default:
       return state;

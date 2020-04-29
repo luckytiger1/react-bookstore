@@ -58,13 +58,10 @@ export const addCollectionAndDocuments = async (
   objectsToAdd: object[],
 ) => {
   const collectionRef = firestore.collection(collectionKey);
-  // console.log(objectsToAdd);
-
   const batch = firestore.batch();
   objectsToAdd.forEach((obj: object) => {
     const newDocRef = collectionRef.doc();
     batch.set(newDocRef, obj);
-    // console.log(newDocRef);
   });
 
   // eslint-disable-next-line no-return-await
@@ -79,8 +76,20 @@ export const convertCollectionsSnapshotToMap = (collectionsSnapshot: any) => {
       };
     },
   );
-  // console.log(transformedCollection);
   return transformedCollection;
+};
+
+export const getUserCartRef = async (userId: any) => {
+  const cartsRef = firestore.collection('carts').where('userId', '==', userId);
+  const snapShot = await cartsRef.get();
+
+  if (snapShot.empty) {
+    const cartDocRef = firestore.collection('carts').doc();
+    await cartDocRef.set({ userId, cartItems: [] });
+    return cartDocRef;
+  } else {
+    return snapShot.docs[0].ref;
+  }
 };
 
 export default firebase;

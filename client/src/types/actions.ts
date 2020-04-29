@@ -26,6 +26,8 @@ export const SIGN_UP_SUCCESS = 'SIGN_UP_SUCCESS';
 export const SIGN_UP_FAILURE = 'SIGN_UP_FAILURE';
 export const SIGN_IN_SUCCESS = 'SIGN_IN_SUCCESS';
 export const SIGN_IN_FAILURE = 'SIGN_IN_FAILURE';
+export const UPDATE_CART_IN_FIREBASE = 'UPDATE_CART_IN_FIREBASE';
+export const SET_CART_FROM_FIREBASE = 'SET_CART_FROM_FIREBASE';
 
 export interface BooksRequestedAction {
   type: typeof FETCH_BOOKS_REQUEST;
@@ -126,9 +128,19 @@ export interface SignInSuccessAction {
   type: typeof SIGN_IN_SUCCESS;
   payload: any;
 }
+
 export interface SignInFailureAction {
   type: typeof SIGN_IN_FAILURE;
   payload: Error;
+}
+
+export interface UpdateCartInFirebaseAction {
+  type: typeof UPDATE_CART_IN_FIREBASE;
+}
+
+export interface SetCartFromFirebaseAction {
+  type: typeof SET_CART_FROM_FIREBASE;
+  payload: any;
 }
 
 export type FetchActionTypes =
@@ -140,8 +152,12 @@ export type FetchActionTypes =
 export type BooksActionTypes =
   | BookAddedToCartAction
   | BookRemovedFromCartAction
-  | AllBooksRemovedFromCartAction
-  | ClearCartAction;
+  | AllBooksRemovedFromCartAction;
+
+export type CartActionTypes =
+  | ClearCartAction
+  | UpdateCartInFirebaseAction
+  | SetCartFromFirebaseAction;
 
 export type FilterBooksActionTypes = FilterBooksAction;
 
@@ -181,4 +197,5 @@ export type AppActions =
   | EmailSignInTypes
   | SignOutTypes
   | SignUpTypes
-  | SignInTypes;
+  | SignInTypes
+  | CartActionTypes;

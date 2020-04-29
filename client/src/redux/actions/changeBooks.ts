@@ -6,6 +6,8 @@ import {
   BOOK_REMOVED_FROM_CART,
   ALL_BOOKS_REMOVED_FROM_CART,
   CLEAR_CART,
+  UPDATE_CART_IN_FIREBASE,
+  SET_CART_FROM_FIREBASE,
 } from '../../types/actions';
 
 const filterBooks = (term: string): AppActions => {
@@ -36,9 +38,22 @@ const allBooksRemovedFromCart = (item: BooksType): AppActions => {
   };
 };
 
-const clearCart = () => {
+const clearCart = (): AppActions => {
   return {
     type: CLEAR_CART,
+  };
+};
+
+const updateCartInFirebase = (): AppActions => {
+  return {
+    type: UPDATE_CART_IN_FIREBASE,
+  };
+};
+
+const setCartFromFirebase = (cartItems: any): AppActions => {
+  return {
+    type: SET_CART_FROM_FIREBASE,
+    payload: cartItems,
   };
 };
 
@@ -48,4 +63,6 @@ export {
   bookRemovedFromCart,
   allBooksRemovedFromCart,
   clearCart,
+  updateCartInFirebase,
+  setCartFromFirebase,
 };
